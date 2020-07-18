@@ -4,8 +4,8 @@
 ## Quick start
   ```sh
   cd blog/
-  npm install
-  npm start
+  yarn install
+  yarn start
   ```
 
   For more info on Gatsby [check this](./GATSBY-README.md).
