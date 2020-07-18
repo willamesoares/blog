@@ -1,11 +1,11 @@
-# willamesoares.com
+# [willamesoares.com](https://willamesoares.com)
 ---
 
 ## Quick start
   ```sh
   cd blog/
-  yarn install
-  yarn start
+  npm install
+  npm start
   ```
 
   For more info on Gatsby [check this](./GATSBY-README.md).
