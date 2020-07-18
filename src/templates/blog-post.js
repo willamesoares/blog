@@ -11,6 +11,8 @@ class BlogPostTemplate extends React.Component {
     const post = this.props.data.markdownRemark;
     const siteTitle = this.props.data.site.siteMetadata.title;
     const { previous, next } = this.props.pageContext;
+    const hasPreviousPost = !!Object.keys(previous || {}).length;
+    const hasNextPost = !!Object.keys(next || {}).length;
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -18,7 +20,7 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
-        <h1>{post.frontmatter.title}</h1>
+        <h1 style={{ marginTop: 0 }}>{post.frontmatter.title}</h1>
         <p
           style={{
             ...scale(-1 / 5),
@@ -38,27 +40,48 @@ class BlogPostTemplate extends React.Component {
 
         <ul
           style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
+            ...(hasPreviousPost && hasNextPost ? {
+              display: `flex`
+            } : {}),
+            fontSize: `.8em`,
             listStyle: `none`,
-            padding: 0
+            padding: `1em 0`,
+            margin: `1em 0 0`
           }}
         >
-          <li>
-            {previous && (
+          { hasPreviousPost && (
+            <li
+              style={{
+                ...(hasNextPost ? {
+                  borderRight: `solid .01em #cccccc`
+                } : {}),
+                flexBasis: 0,
+                flexGrow: 1,
+                paddingRight: `.5em`
+              }}
+            >
               <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
+                  ← {previous.frontmatter.title}
+                </Link>
+            </li>
+          )}
+          { hasNextPost && (
+            <li
+              style={{
+                ...(hasPreviousPost ? {
+                  borderLeft: `solid .01em #cccccc`
+                } : {}),
+                flexBasis: 0,
+                flexGrow: 1,
+                paddingLeft: `.5em`,
+                textAlign: `right`
+              }}
+            >
               <Link to={next.fields.slug} rel="next">
                 {next.frontmatter.title} →
               </Link>
-            )}
-          </li>
+            </li>
+          )}
         </ul>
       </Layout>
     );

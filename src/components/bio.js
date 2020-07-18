@@ -16,81 +16,55 @@ function Bio() {
         return (
           <div
             style={{
-              alignItems: `center`,
-              display: `flex`,
-              marginBottom: rhythm(2.5)
+              flexDirection: `column`,
+              display: `flex`
             }}
           >
-            <Link
+            <h3
               style={{
-                backgroundImage: `none`,
-                boxShadow: `none`,
-                color: `inherit`,
-                height: rhythm(3),
-                marginRight: rhythm(0.8),
-                textDecoration: `none`,
-                width: rhythm(3)
+                margin: `0 0 .8em`
               }}
-              to={`/`}
             >
-              <Image
-                fixed={data.avatar.childImageSharp.fixed}
-                alt={author}
+              <Link
                 style={{
-                  marginRight: rhythm(1 / 2),
-                  marginBottom: 0,
-                  width: `100%`,
-                  height: `100%`,
-                  borderRadius: `100%`
+                  color: `black`,
+                  backgroundImage: `none`
                 }}
-                imgStyle={{
-                  borderRadius: `50%`
-                }}
-              />
-            </Link>
+                to={`/`}
+              >
+                { author }
+              </Link>
+            </h3>
             <div
               style={{
-                width: `70%`
+                display: `flex`,
+                alignItems: `center`
               }}
             >
-              <h3
-                style={{
-                  margin: `0 0 ${rhythm(0.5)}`
-                }}
+              <a
+                style={{ ...noThemeTextDecoration, ...iconStyle }}
+                href={data.site.siteMetadata.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {author}
-              </h3>
-              <div
-                style={{
-                  display: `flex`,
-                  alignItems: `center`
-                }}
+                <img src={githubIcon} alt="github" />
+              </a>
+              <a
+                style={{ ...noThemeTextDecoration, ...iconStyle }}
+                href={data.site.siteMetadata.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <a
-                  style={{ ...noThemeTextDecoration, ...iconStyle }}
-                  href={data.site.siteMetadata.social.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={githubIcon} alt="github" />
-                </a>
-                <a
-                  style={{ ...noThemeTextDecoration, ...iconStyle }}
-                  href={data.site.siteMetadata.social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={linkedinIcon} alt="linkedin" />
-                </a>
-                <a
-                  style={{ ...noThemeTextDecoration, ...iconStyle }}
-                  href={data.site.siteMetadata.social.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={twitterIcon} alt="twitter" />
-                </a>
-              </div>
+                <img src={linkedinIcon} alt="linkedin" />
+              </a>
+              <a
+                style={{ ...noThemeTextDecoration, ...iconStyle }}
+                href={data.site.siteMetadata.social.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={twitterIcon} alt="twitter" />
+              </a>
             </div>
           </div>
         );
@@ -115,13 +89,6 @@ const noThemeTextDecoration = {
 
 const bioQuery = graphql`
   query BioQuery {
-    avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
-      childImageSharp {
-        fixed(width: 500, height: 500) {
-          ...GatsbyImageSharpFixed
-        }
-      }
-    }
     site {
       siteMetadata {
         author

@@ -15,7 +15,7 @@ The goal was to implement a script with which I could fetch the lyrics for the s
 
 For the long-term Spotify users, you probably remember when Spotify had the functionality to show the song lyrics within the desktop app, right? Good old times. I still don't understand why that was removed but all we got now is the `Behind the Lyrics` feature, which shows some ~~useless~~ information and small snippets of the lyrics for the song we are listening (it seems it is available only on mobile devices).
 
-![behind_the_lyrics](behind_the_lyrics.png)
+![Screenshot of Spotify app showing the feature called Behind The Lyrics](behind_the_lyrics.png "Behind The Lyrics feature in Spotify")
 
 From here I will start to tear apart the script following the order it was implemented. If you want to check the full script before continuing, you can go to [this repository](https://github.com/willamesoares/lyrics-crawler) on Github. There, you will also have instructions on how to run it, but keep in mind that I will guide you through that in this post as well :)
 

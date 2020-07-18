@@ -1,11 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: `@willame_soares`,
+    title: `@soawillb`,
     author: `Will Soares`,
     description: ``,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+    siteUrl: `https://willamesoares.com`,
     social: {
-      twitter: `https://twitter.com/willame_soares`,
+      twitter: `https://twitter.com/soawillb`,
       github: `https://github.com/willamesoares`,
       linkedin: `https://www.linkedin.com/in/willamesoares/`,
     },
@@ -32,7 +32,7 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 590,
+              showCaptions: true
             },
           },
           {
@@ -42,7 +42,12 @@ module.exports = {
               showLineNumbers: true,
             },
           },
-          `gatsby-remark-prismjs`,
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              showLineNumbers: true
+            }
+          },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
@@ -60,11 +65,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Blog`,
-        short_name: `blog`,
+        name: `Will Soares`,
+        short_name: `Will Soares`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#663399`,
+        theme_color: `#457be6`,
         display: `minimal-ui`,
         icon: `src/assets/favicon.png`,
       },
