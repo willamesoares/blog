@@ -40,37 +40,43 @@ class BlogPostTemplate extends React.Component {
 
         <ul
           style={{
-            ...(hasPreviousPost && hasNextPost ? {
-              display: `flex`
-            } : {}),
+            ...(hasPreviousPost && hasNextPost
+              ? {
+                  display: `flex`
+                }
+              : {}),
             fontSize: `.8em`,
             listStyle: `none`,
             padding: `1em 0`,
             margin: `1em 0 0`
           }}
         >
-          { hasPreviousPost && (
+          {hasPreviousPost && (
             <li
               style={{
-                ...(hasNextPost ? {
-                  borderRight: `solid .01em #cccccc`
-                } : {}),
+                ...(hasNextPost
+                  ? {
+                      borderRight: `solid .01em #cccccc`
+                    }
+                  : {}),
                 flexBasis: 0,
                 flexGrow: 1,
                 paddingRight: `.5em`
               }}
             >
               <Link to={previous.fields.slug} rel="prev">
-                  ← {previous.frontmatter.title}
-                </Link>
+                ← {previous.frontmatter.title}
+              </Link>
             </li>
           )}
-          { hasNextPost && (
+          {hasNextPost && (
             <li
               style={{
-                ...(hasPreviousPost ? {
-                  borderLeft: `solid .01em #cccccc`
-                } : {}),
+                ...(hasPreviousPost
+                  ? {
+                      borderLeft: `solid .01em #cccccc`
+                    }
+                  : {}),
                 flexBasis: 0,
                 flexGrow: 1,
                 paddingLeft: `.5em`,

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, StaticQuery, graphql } from 'gatsby';
-import Image from 'gatsby-image';
 
 import { rhythm } from '../utils/typography';
 import githubIcon from '../assets/github.svg';
@@ -32,7 +31,7 @@ function Bio() {
                 }}
                 to={`/`}
               >
-                { author }
+                {author}
               </Link>
             </h3>
             <div
