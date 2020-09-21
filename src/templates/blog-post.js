@@ -122,7 +122,9 @@ const BlogPostTemplate = (props) => {
         )}
       </ul>
       <CommentForm docId={docId} />
-      { comments.length ? <Comments comments={comments} /> : null }
+      { comments.length ? (
+        <Comments comments={comments} docId={docId} />
+      ) : null }
     </Layout>
   );
 }
