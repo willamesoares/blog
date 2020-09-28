@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, graphql } from 'gatsby';
 
 import Bio from '../components/bio';
@@ -8,6 +8,7 @@ import { rhythm, scale } from '../utils/typography';
 import { firestore } from '../../firebase';
 import Comments from '../components/comments';
 import CommentForm from '../components/commentForm';
+import { ExperimentalFeaturesContext } from '../context/experimentalFeatures';
 
 const BlogPostTemplate = (props) => {
   const {
@@ -29,22 +30,34 @@ const BlogPostTemplate = (props) => {
   const hasNextPost = !!Object.keys(next || {}).length;
   const postSlug = post.fields.slug;
   const docId = postSlug.substring(1, postSlug.length - 1);
+  const { hasCommentsEnabled } = useContext(ExperimentalFeaturesContext) || {};
 
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-      const unsubscribe = firestore
-        .doc(`posts/${docId}`)
-        .collection('comments')
-        .orderBy('time', 'desc')
-        .onSnapshot(snapshot => {
-          if (!snapshot.docs.length) return;
-          const comments = snapshot.docs.map(s => ({id: s.id, ...s.data() }));
-          setComments(comments);
-        });
+    if (hasCommentsEnabled && !hasCommentsEnabled()) {
+      return;
+    }
+
+    const unsubscribe = firestore
+      .doc(`posts/${docId}`)
+      .collection('comments')
+      .orderBy('time', 'desc')
+      .onSnapshot(snapshot => {
+        if (!snapshot.docs.length) return;
+        const comments = snapshot.docs.map(s => ({id: s.id, ...s.data() }));
+        setComments(comments);
+      });
 
     return unsubscribe;
-  }, [docId]);
+  }, [docId, hasCommentsEnabled]);
+
+  const renderCommentSection = () => {
+    return [
+      <CommentForm key={docId} docId={docId} />,
+      comments.length ? <Comments comments={comments} docId={docId} /> : null
+    ];
+  }
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -121,10 +134,7 @@ const BlogPostTemplate = (props) => {
           </li>
         )}
       </ul>
-      <CommentForm docId={docId} />
-      { comments.length ? (
-        <Comments comments={comments} docId={docId} />
-      ) : null }
+      { hasCommentsEnabled && hasCommentsEnabled() ? renderCommentSection() : null }
     </Layout>
   );
 }
