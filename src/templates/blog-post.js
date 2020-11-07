@@ -6,36 +6,30 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 import { rhythm, scale } from '../utils/typography';
 import { firestore } from '../../firebase';
-import Comments from '../components/comments';
+import Comments from '../components/comment';
 import CommentForm from '../components/commentForm';
 import { ExperimentalFeaturesContext } from '../context/experimentalFeatures';
 
-const BlogPostTemplate = (props) => {
+const BlogPostTemplate = props => {
   const {
     data: {
       markdownRemark: post = {},
-      site: {
-        siteMetadata: {
-          title: siteTitle
-        } = {}
-      } = {}
+      site: { siteMetadata: { title: siteTitle } = {} } = {}
     } = {},
     location,
-    pageContext: {
-      next,
-      previous
-    } = {}
+    pageContext: { next, previous } = {}
   } = props;
   const hasPreviousPost = !!Object.keys(previous || {}).length;
   const hasNextPost = !!Object.keys(next || {}).length;
   const postSlug = post.fields.slug;
   const docId = postSlug.substring(1, postSlug.length - 1);
-  const { hasCommentsEnabled } = useContext(ExperimentalFeaturesContext) || {};
+  const { comments: hasCommentsEnabled } =
+    useContext(ExperimentalFeaturesContext) || {};
 
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    if (hasCommentsEnabled && !hasCommentsEnabled()) {
+    if (!hasCommentsEnabled) {
       return;
     }
 
@@ -45,7 +39,7 @@ const BlogPostTemplate = (props) => {
       .orderBy('time', 'desc')
       .onSnapshot(snapshot => {
         if (!snapshot.docs.length) return;
-        const comments = snapshot.docs.map(s => ({id: s.id, ...s.data() }));
+        const comments = snapshot.docs.map(s => ({ id: s.id, ...s.data() }));
         setComments(comments);
       });
 
@@ -57,7 +51,7 @@ const BlogPostTemplate = (props) => {
       <CommentForm key={docId} docId={docId} />,
       comments.length ? <Comments comments={comments} docId={docId} /> : null
     ];
-  }
+  };
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -134,10 +128,10 @@ const BlogPostTemplate = (props) => {
           </li>
         )}
       </ul>
-      { hasCommentsEnabled && hasCommentsEnabled() ? renderCommentSection() : null }
+      {hasCommentsEnabled ? renderCommentSection() : null}
     </Layout>
   );
-}
+};
 
 export default BlogPostTemplate;
 

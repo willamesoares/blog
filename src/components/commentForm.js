@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createUseStyles } from 'react-jss'
+import { createUseStyles } from 'react-jss';
 
 import { firestore } from '../../firebase';
 
@@ -37,14 +37,17 @@ const useStyles = createUseStyles({
   }
 });
 
-const CommentForm = (props) => {
+const CommentForm = props => {
   const classes = useStyles();
 
-  const [commentDetails, setCommentDetails] = useState({ name: '', content: ''});
+  const [commentDetails, setCommentDetails] = useState({
+    name: '',
+    content: ''
+  });
   const [isSendingComment, setIsSendingComment] = useState(false);
   const [error, setError] = useState('');
 
-  const onFormSubmitHandler = async (evt) => {
+  const onFormSubmitHandler = async evt => {
     evt.preventDefault();
 
     setError('');
@@ -59,9 +62,11 @@ const CommentForm = (props) => {
           time: new Date(),
           parentId: null,
           ...commentDetails
-        }).then(() => {
-          setCommentDetails({ name: '', content: ''});
-        }).catch(() => {
+        })
+        .then(() => {
+          setCommentDetails({ name: '', content: '' });
+        })
+        .catch(() => {
           setError('Error while posting comment, please try again.');
         });
     } catch (error) {
@@ -69,42 +74,44 @@ const CommentForm = (props) => {
     }
 
     setIsSendingComment(false);
-  }
+  };
 
-  const onInputChangeHandler = (evt) => {
+  const onInputChangeHandler = evt => {
     const { name, value } = evt.target;
     setCommentDetails({
       ...commentDetails,
       [name]: value
     });
-  }
+  };
 
   return (
     <form className={classes.form} onSubmit={onFormSubmitHandler}>
       <h3>Leave a comment</h3>
       <input
-        type='text'
-        name='name'
-        placeholder='Your Name'
+        type="text"
+        name="name"
+        placeholder="Your Name"
         value={commentDetails.name}
         onChange={onInputChangeHandler}
       />
       <textarea
-        type='text'
-        name='content'
-        placeholder='Comment'
+        type="text"
+        name="content"
+        placeholder="Comment"
         value={commentDetails.content}
         onChange={onInputChangeHandler}
       />
       <button
-        type='submit'
-        disabled={isSendingComment || !(commentDetails.name && commentDetails.content)}
+        type="submit"
+        disabled={
+          isSendingComment || !(commentDetails.name && commentDetails.content)
+        }
       >
-        { isSendingComment ? 'Sending...' : 'Send' }
+        {isSendingComment ? 'Sending...' : 'Send'}
       </button>
-      { error ? <p className={classes.error}>{error}</p> : null }
+      {error ? <p className={classes.error}>{error}</p> : null}
     </form>
   );
-}
+};
 
 export default CommentForm;

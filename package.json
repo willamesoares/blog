@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "willamesoares.com",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "willamesoares.com",
+  "version": "1.0.0",
+  "author": "Will Soares <willamesoares65@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/willamesoares/blog/issues"
   },
   "scripts": {
     "build": "gatsby build",
@@ -46,7 +46,7 @@
     "prettier": "^1.17.0",
     "react-jss": "^10.4.0"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://github.com/willamesoares/blog/blob/master/README.md",
   "keywords": [
     "gatsby"
   ],
