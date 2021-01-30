@@ -3,6 +3,7 @@
 
 ## Quick start
   ```sh
+  git clone https://github.com/willamesoares/blog.git
   cd blog/
   npm install
   npm start
