@@ -18,7 +18,12 @@ For more info on Gatsby [check this](./GATSBY-README.md).
 ## Tools used
 
  - [Gatsby](https://www.gatsbyjs.com/) - React.js + Graphql
- - [Firebase](https://firebase.google.com/) (comment section)
  - [PrismJS](https://prismjs.com/) (syntax highlighting in posts content)
  - [Prettier](https://prettier.io/) (code formatting)
  - [React-JSS](https://cssinjs.org/react-jss?v=v10.4.0) (CSS-in-JS)
+
+## Integrates with
+ - [Firebase](https://firebase.google.com/) (comment section)
+ - [Spotify](https://developer.spotify.com/)
+ - [Google Tag Manager](https://developers.google.com/tag-manager)
+ - [Google Analytics](https://analytics.google.com/analytics/web)
