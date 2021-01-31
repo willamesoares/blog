@@ -12,19 +12,6 @@ I guess the same thing happened in the past where I would register things that c
 
 Anyways, I've been thinking about publishing something more personal for a while now but just couldn't find a more specific theme to write about considering that there are so many thoughts going through my head and so many ideas that could go well together in a single post but could also have their own post. All of that makes it hard for you to come up with something that is good enough to share, like something that might make sense to someone else reading it instead of being seen as just something too personal that only serves the purpose of getting a felling off of my chest.
 
-<figure class="gatsby-resp-image-figure">
-  <iframe
-    src="https://open.spotify.com/embed/track/6guXQ9rHmOofkqp8uHYO8r"
-    style="margin-bottom:0"
-    width="100%"
-    height="80"
-    frameborder="0"
-    allowtransparency="true"
-    allow="encrypted-media"
-  ></iframe>
-  <figcaption class="gatsby-resp-image-figcaption">Listening to</figcaption>
-</figure>
-
 So here we are, reading and writing about mind, body, and work, and those being together with the purpose of encompassing a bunch of annotations I made and was able to gather from the past few months. As I mentioned, those are themes that could easily go into individual posts and there would be just so much to talk about but they kind of make sense together considering that those three things in my opinion, and most people might think alike, are sort of a threefold that keeps life going and the way you handle each of of them will define whether life will be going great, bearable or just real bad.
 
 ## Work
@@ -35,19 +22,6 @@ School, college, internship, then engage with a full time job, throw in some ach
 All this talk about work and how it pressures and at the same time might grants us some praise comes with its own concerns and wonderings. I am trully not entirely against what has been established by others. I am definetely not someone that can serve as an example of going against that, it is quite the opposite. However, that does not force us, those who play by the "rules", to remain outside of the debate. In fact, there are tons of intriguing thoughts that might only come to you when you experience things. I mean, how far are we planning on going with achievements that might come out of all this work? Are we constantly turning things that were supposed to bring us joy into chores? Are we just replicating what others before us have done and not really aggregating into some bigger plan?
 
 Well, feel free to go get answers somewhere or come up with your own. I'm not here to answer these, I never said I was, sorry.
-
-<figure class="gatsby-resp-image-figure">
-  <iframe
-    src="https://open.spotify.com/embed/track/2JoZzpdeP2G6Csfdq5aLXP"
-    style="margin-bottom:0"
-    width="100%"
-    height="80"
-    frameborder="0"
-    allowtransparency="true"
-    allow="encrypted-media"
-  ></iframe>
-  <figcaption class="gatsby-resp-image-figcaption">Listening to</figcaption>
-</figure>
 
 ## Body
 When talking about body one might think "Here it comes the talk about aesthetics". Well, that's totally expected since body and aesthetics are usually put together and sometimes even as one being a consequence of the other. The thing is that when you focus too much on aesthetics there is an entire new discussion involved which is how you perceive beauty standards, which have changed and will continue to change as time goes by. For this post, that's totally not the focus so I wanted to make this clear.
@@ -60,19 +34,6 @@ The most interesting thing now is: everyone seems to be aware of those things! I
 
 From personal experience I see the importance of constantly taking some time to just stop and try to understand the current relation you have with your body, then taking some action, which could either be taking steps back and prioritize your body health or just keep going if you see there's nothing to worry about, maybe you do have a more resistant body then others :)
 
-<figure class="gatsby-resp-image-figure">
-  <iframe
-    src="https://open.spotify.com/embed/track/7B7lf3sIze5VR2WuYttn18"
-    style="margin-bottom:0"
-    width="100%"
-    height="80"
-    frameborder="0"
-    allowtransparency="true"
-    allow="encrypted-media"
-  ></iframe>
-  <figcaption class="gatsby-resp-image-figcaption">Listening to</figcaption>
-</figure>
-
 ## Mind
 Finally, and definetely not less important, we arrive at mind. I can't even begin to talk about mind because I myself never got a handle on it, even though sometimes I felt like I did it turns out it is a lot more complicated than I thought to make it last long enough. So ya, still a work in progress.
 
@@ -81,19 +42,6 @@ In my opinion, a good long-lasting state of mind is not something achievable in 
 I am usually seen as someone who criticizes therapy a lot. It is sort of a conflicting scenario where I totally understand the need for it and how it can change you if it is done right. The thing is, unless you are willing to let someone help you, there is no point in doing therapy, it will just be a waste of time and money. It is something that you can not be forced to do. If you are like me, the first thing you need to work on, which is definetely not easy or quick, is to recognize that there are professionals that can match your expectations and then finding the time (and money) to experiment until you're comfortable.
 
 Regarding mind, this might not be the best post to read if you're looking for answers, as mentioned there is some of "getting stuff off of my chest" in this post. However, if you feel like this section relates to you, I hope that the fact that we think alike might have helped somehow.
-
-<figure class="gatsby-resp-image-figure">
-  <iframe
-    src="https://open.spotify.com/embed/track/5XR2r8uYYnUNVyks8X6CUa"
-    style="margin-bottom:0"
-    width="100%"
-    height="80"
-    frameborder="0"
-    allowtransparency="true"
-    allow="encrypted-media"
-  ></iframe>
-  <figcaption class="gatsby-resp-image-figcaption">Listening to</figcaption>
-</figure>
 
 ## Mind . Body . Work
 

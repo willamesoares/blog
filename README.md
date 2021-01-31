@@ -5,6 +5,10 @@
   ```sh
   git clone https://github.com/willamesoares/blog.git
   cd blog/
+
+  cp .env.development.sample .env.development
+  # populate required credentials in .env.development file
+
   npm install
   npm start
   ```
@@ -15,6 +19,6 @@ For more info on Gatsby [check this](./GATSBY-README.md).
 
  - [Gatsby](https://www.gatsbyjs.com/) - React.js + Graphql
  - [Firebase](https://firebase.google.com/) (comment section)
- - [PrismJS](https://prismjs.com/) (syntax highlighting in posts)
+ - [PrismJS](https://prismjs.com/) (syntax highlighting in posts content)
  - [Prettier](https://prettier.io/) (code formatting)
  - [React-JSS](https://cssinjs.org/react-jss?v=v10.4.0) (CSS-in-JS)

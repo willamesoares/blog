@@ -65,6 +65,9 @@ function Bio() {
                 <img src={twitterIcon} alt="twitter" />
               </a>
             </div>
+            <Link style={{ marginTop: '.5rem', width: '9.2rem', fontSize: '.7rem' }} to={`/playlist`}>
+              get to know me through songs
+            </Link>
           </div>
         );
       }}
@@ -77,8 +80,8 @@ const iconStyle = {
   display: `block`,
   marginBottom: `0`,
   marginRight: rhythm(0.6),
-  width: rhythm(0.8),
-  height: rhythm(0.8)
+  width: rhythm(0.6),
+  height: rhythm(0.6)
 };
 
 const noThemeTextDecoration = {
