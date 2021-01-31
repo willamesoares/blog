@@ -26,4 +26,3 @@ For more info on Gatsby [check this](./GATSBY-README.md).
  - [Firebase](https://firebase.google.com/) (comment section)
  - [Spotify](https://developer.spotify.com/)
  - [Google Tag Manager](https://developers.google.com/tag-manager)
- - [Google Analytics](https://analytics.google.com/analytics/web)
