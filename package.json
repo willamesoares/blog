@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "firebase": "^7.19.1",
-    "gatsby": "^2.3.16",
+    "gatsby": "^2.32.8",
     "gatsby-image": "^2.0.37",
     "gatsby-plugin-feed": "^2.1.0",
     "gatsby-plugin-google-tagmanager": "^2.10.0",
@@ -38,6 +38,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
+    "react-loading-skeleton": "^2.2.0",
     "react-typography": "^0.16.19",
     "typography": "^0.16.19",
     "typography-theme-elk-glen": "^0.16.19"
