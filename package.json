@@ -1,60 +1,40 @@
 {
-  "name": "willamesoares.com",
+  "name": "blog",
   "private": true,
-  "description": "willamesoares.com",
-  "version": "1.0.0",
-  "author": "Will Soares <willamesoares65@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/willamesoares/blog/issues"
-  },
+  "description": "",
+  "license": "",
+  "sideEffects": false,
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+    "build": "remix build",
+    "dev": "cross-env NODE_ENV=development netlify dev",
+    "postinstall": "remix setup node",
+    "start": "cross-env NODE_ENV=production netlify dev"
   },
   "dependencies": {
-    "firebase": "^7.19.1",
-    "gatsby": "^2.32.8",
-    "gatsby-image": "^2.0.37",
-    "gatsby-plugin-feed": "^2.1.0",
-    "gatsby-plugin-google-tagmanager": "^2.10.0",
-    "gatsby-plugin-manifest": "^2.0.28",
-    "gatsby-plugin-offline": "^2.0.25",
-    "gatsby-plugin-react-helmet": "^3.0.12",
-    "gatsby-plugin-sharp": "^2.0.32",
-    "gatsby-plugin-typography": "^2.2.12",
-    "gatsby-remark-copy-linked-files": "^2.0.11",
-    "gatsby-remark-images": "^2.0.6",
-    "gatsby-remark-prismjs": "^3.2.8",
-    "gatsby-remark-responsive-iframe": "^2.1.1",
-    "gatsby-remark-smartypants": "^2.0.9",
-    "gatsby-source-filesystem": "^2.0.29",
-    "gatsby-transformer-remark": "^2.3.8",
-    "gatsby-transformer-sharp": "^2.1.17",
-    "prismjs": "^1.16.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-helmet": "^5.2.0",
-    "react-loading-skeleton": "^2.2.0",
-    "react-typography": "^0.16.19",
-    "typography": "^0.16.19",
-    "typography-theme-elk-glen": "^0.16.19"
+    "@netlify/functions": "^0.10.0",
+    "@remix-run/netlify": "^1.3.2",
+    "@remix-run/react": "^1.3.2",
+    "cross-env": "^7.0.3",
+    "graphql": "^16.3.0",
+    "graphql-request": "^4.1.0",
+    "highlight.js": "^11.5.0",
+    "marked": "^4.0.12",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "remix": "^1.3.2",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
-    "prettier": "^1.17.0",
-    "react-jss": "^10.4.0"
+    "@remix-run/dev": "^1.3.2",
+    "@remix-run/eslint-config": "^1.3.2",
+    "@types/marked": "^4.0.2",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "@types/styled-components": "^5.1.24",
+    "eslint": "^8.11.0",
+    "typescript": "^4.5.5"
   },
-  "homepage": "https://github.com/willamesoares/blog/blob/master/README.md",
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
-  "main": "n/a",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+  "engines": {
+    "node": ">=14"
   }
 }

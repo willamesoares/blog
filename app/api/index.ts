@@ -1,0 +1,1 @@
+export { fetchCms } from "./cms";
