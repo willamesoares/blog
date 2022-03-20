@@ -21,14 +21,14 @@ import highlightAtomDarkTheme from "highlight.js/styles/atom-one-dark.css";
 export const meta: MetaFunction = () => {
   return {
     charset: "utf-8",
-    description: "Posts about web development and a whatever comes to mind.",
+    description: "Posts about web development and whatever comes to mind.",
     keywords: "web,development,javascript,react,html,css",
     title: "@soawillb",
     viewport: "width=device-width,initial-scale=1",
     "og:image": "/favicon.ico",
     "twitter:creator": "Will Soares",
     "twitter:description":
-      "Posts about web development and a whatever comes to mind.",
+      "Posts about web development and whatever comes to mind.",
   };
 };
 
