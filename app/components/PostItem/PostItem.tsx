@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "remix";
 
 import { Post, Tag as TagProps } from "~/types";
+import calculateReadTime from "~/utils/calculateReadTime";
 import { getLongFormattedDate } from "~/utils/date";
 
 import Tag from "../Tag/Tag";
@@ -16,8 +17,11 @@ const PostItem = (props: Post) => {
           {props.title}
         </Link>
       </S.Title>
-      <S.Meta>
-        <S.Date>{getLongFormattedDate(props.date)}</S.Date>
+      <S.Subtitle>
+        <S.Meta>
+          {getLongFormattedDate(props.date)} &bull;{" "}
+          {calculateReadTime(props.content)} min read
+        </S.Meta>
         {props.tags && props.tags.length ? (
           <S.Tags>
             {props.tags.map((tag: TagProps) => (
@@ -25,7 +29,7 @@ const PostItem = (props: Post) => {
             ))}
           </S.Tags>
         ) : null}
-      </S.Meta>
+      </S.Subtitle>
       <S.Description>{props.description}</S.Description>
     </S.Wrapper>
   );

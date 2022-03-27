@@ -20,7 +20,7 @@ export const Title = styled.h3`
   }
 `;
 
-export const Meta = styled.div`
+export const Subtitle = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -28,7 +28,7 @@ export const Meta = styled.div`
   font-size: 1.1rem;
 `;
 
-export const Date = styled.small`
+export const Meta = styled.small`
   font-weight: bold;
 `;
 

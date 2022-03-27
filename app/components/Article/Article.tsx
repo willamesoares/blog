@@ -2,6 +2,7 @@ import { marked } from "marked";
 import React from "react";
 
 import { Post } from "~/types";
+import calculateReadTime from "~/utils/calculateReadTime";
 import { getLongFormattedDate } from "~/utils/date";
 import Tag from "../Tag/Tag";
 
@@ -15,7 +16,10 @@ const Article = (article: Post): JSX.Element => {
       ) : null}
       <S.Title>{article?.title}</S.Title>
       {article?.date ? (
-        <S.Date>{getLongFormattedDate(article.date)}</S.Date>
+        <S.Meta>
+          {getLongFormattedDate(article.date)} &bull;{" "}
+          {calculateReadTime(article.content)} min read
+        </S.Meta>
       ) : null}
       {article?.tags && article?.tags.length ? (
         <S.Tags>

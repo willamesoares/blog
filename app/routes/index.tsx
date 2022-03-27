@@ -15,6 +15,7 @@ const GetPostsQuery = gql`
   {
     posts {
       title
+      content
       date
       description
       slug

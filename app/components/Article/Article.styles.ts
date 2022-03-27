@@ -6,7 +6,7 @@ export const Wrapper = styled.article`
 
 export const Title = styled.h2``;
 
-export const Date = styled.span`
+export const Meta = styled.span`
   font-weight: bold;
   font-size: 1.1rem;
 `;
