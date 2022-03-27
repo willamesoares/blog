@@ -42,11 +42,15 @@ const PostsList = styled.div`
 export default function HomePage() {
   let { posts } = useLoaderData<{ posts: Post[] }>();
 
+  const postsSortedByDate = [...posts].sort((postA, postB) => {
+    return new Date(postB.date).getTime() - new Date(postA.date).getTime();
+  });
+
   return (
     <>
       <Header />
       <PostsList>
-        {posts.map((post: Post) => (
+        {postsSortedByDate.map((post: Post) => (
           <PostItem key={post.slug} {...post} />
         ))}
       </PostsList>
