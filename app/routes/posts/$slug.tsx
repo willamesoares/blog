@@ -1,5 +1,7 @@
 import { gql } from "graphql-request";
-import { useLoaderData, json, LoaderFunction, MetaFunction } from "remix";
+import { useEffect } from "react";
+import { useLoaderData, json, LoaderFunction, MetaFunction, Link } from "remix";
+import highlight from "highlight.js";
 
 import { fetchCms } from "~/api";
 import Article from "~/components/Article/Article";
@@ -48,5 +50,15 @@ export let loader: LoaderFunction = async ({ params }) => {
 export default function PostPage() {
   let { post } = useLoaderData<{ post: Post }>();
 
-  return <Article {...post} />;
+  useEffect(() => {
+    highlight.highlightAll();
+  }, []);
+
+  return (
+    <>
+      <Link to="/"> &lt; Home</Link>
+      <Article {...post} />
+      <Link to="/"> &lt; Home</Link>
+    </>
+  );
 }

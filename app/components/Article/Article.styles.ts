@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.article``;
+export const Wrapper = styled.article`
+  margin: 1rem 0;
+`;
 
 export const Title = styled.h2``;
 
