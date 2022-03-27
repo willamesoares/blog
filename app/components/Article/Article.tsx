@@ -14,7 +14,9 @@ const Article = (article: Post): JSX.Element => {
         <img src={article.coverImage.url} alt="post cover" />
       ) : null}
       <S.Title>{article?.title}</S.Title>
-      <S.Date>{getLongFormattedDate(article?.date)}</S.Date>
+      {article?.date ? (
+        <S.Date>{getLongFormattedDate(article.date)}</S.Date>
+      ) : null}
       {article?.tags && article?.tags.length ? (
         <S.Tags>
           {article.tags.map((tag) => (

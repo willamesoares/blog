@@ -1,9 +1,13 @@
 import { gql } from "graphql-request";
-import { useLoaderData, json, LoaderFunction } from "remix";
+import { useLoaderData, json, LoaderFunction, MetaFunction } from "remix";
 
 import { fetchCms } from "~/api";
 import Article from "~/components/Article/Article";
 import { Post } from "~/types";
+
+export const meta: MetaFunction = ({ data }: { data: { post: Post } }) => {
+  return { title: `${data.post.title} | @soawillb` };
+};
 
 const GetPostBySlug = gql`
   query MyQuery($slug: String!) {
