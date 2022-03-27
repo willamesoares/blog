@@ -6,7 +6,7 @@ import Article from "~/components/Article/Article";
 import { Post } from "~/types";
 
 export const meta: MetaFunction = ({ data }: { data: { post: Post } }) => {
-  return { title: `${data.post.title} | @soawillb` };
+  return { title: `${data?.post?.title} | @soawillb` };
 };
 
 const GetPostBySlug = gql`
@@ -34,7 +34,13 @@ const GetPostBySlug = gql`
 export let loader: LoaderFunction = async ({ params }) => {
   const { slug } = params;
 
-  const data = await fetchCms(GetPostBySlug, { slug });
+  const data = await fetchCms<{ post: Post }>(GetPostBySlug, { slug });
+
+  if (!data?.post) {
+    throw new Response("Not Found", {
+      status: 404,
+    });
+  }
 
   return json(data);
 };
