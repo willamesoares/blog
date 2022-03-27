@@ -28,6 +28,13 @@ const Header = () => {
         >
           <img src="/twitter-icon.svg" alt="twitter profile" />
         </a>
+        <a
+          href="https://open.spotify.com/user/12142416238?si=413f855243db43fd"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="/spotify-icon.svg" alt="spotify profile" />
+        </a>
       </S.SocialLinks>
     </S.Wrapper>
   );
