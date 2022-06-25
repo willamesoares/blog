@@ -50,4 +50,8 @@ export const Content = styled.div`
   ul li {
     padding-bottom: 0.5rem;
   }
+
+  mark {
+    padding-top: 0.2rem;
+  }
 `;
