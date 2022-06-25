@@ -18,6 +18,12 @@ export const Tags = styled.div`
   gap: 0.5rem;
 `;
 
+export const CoverImageCredits = styled.small`
+  line-height: 1.5rem;
+  color: gray;
+  font-size: 0.7rem;
+`;
+
 export const Content = styled.div`
   h1,
   h2,

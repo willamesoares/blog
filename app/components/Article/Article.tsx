@@ -14,6 +14,13 @@ const Article = (article: Post): JSX.Element => {
       {article?.coverImage ? (
         <img src={article.coverImage.url} alt="post cover" />
       ) : null}
+      {article?.coverImageCredits ? (
+        <S.CoverImageCredits
+          dangerouslySetInnerHTML={{
+            __html: marked(article?.coverImageCredits),
+          }}
+        ></S.CoverImageCredits>
+      ) : null}
       <S.Title>{article?.title}</S.Title>
       {article?.date ? (
         <S.Meta>

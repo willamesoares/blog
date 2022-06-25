@@ -29,6 +29,7 @@ const GetPostBySlug = gql`
       coverImage {
         url
       }
+      coverImageCredits
     }
   }
 `;

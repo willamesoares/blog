@@ -10,4 +10,5 @@ export type Post = {
   coverImage?: {
     url: string;
   };
+  coverImageCredits?: string;
 };
