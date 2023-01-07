@@ -4,8 +4,11 @@ import { useLoaderData, json, LoaderFunction, MetaFunction, Link } from "remix";
 import highlight from "highlight.js";
 
 import { fetchCms } from "~/api";
-import Article from "~/components/Article/Article";
+
 import { Post } from "~/types";
+
+import Article from "~/components/Article/Article";
+import CommentSection from "~/components/CommentSection/CommentSection";
 
 export const meta: MetaFunction = ({ data }: { data: { post: Post } }) => {
   return { title: `${data?.post?.title} | @soawillb` };
@@ -60,6 +63,7 @@ export default function PostPage() {
       <Link to="/"> &lt; Home</Link>
       <Article {...post} />
       <Link to="/"> &lt; Home</Link>
+      <CommentSection />
     </>
   );
 }
