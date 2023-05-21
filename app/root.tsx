@@ -1,22 +1,37 @@
+import { useEffect } from "react";
 import {
+  json,
   Link,
   Links,
   LinksFunction,
   LiveReload,
+  LoaderFunction,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
+  useLocation,
 } from "remix";
 import type { MetaFunction } from "remix";
+
+import AppLayout from "./components/AppLayout/AppLayout";
+import * as gtag from "~/utils/gtags.client";
 
 import globalStyles from "~/styles/global.css";
 import normalizeStyles from "~/styles/normalize.css";
 import resetStyles from "~/styles/reset.css";
 import typographyStyles from "~/styles/typography.css";
-import AppLayout from "./components/AppLayout/AppLayout";
 
 import highlightAtomDarkTheme from "highlight.js/styles/atom-one-dark.css";
+
+type LoaderData = {
+  gaTrackingId?: string;
+}
+
+export const loader: LoaderFunction = async () => {
+  return json<LoaderData>({ gaTrackingId: process.env.GA_TRACKING_ID });
+};
 
 export const meta: MetaFunction = () => {
   return {
@@ -88,6 +103,15 @@ export function CatchBoundary() {
 }
 
 export default function App() {
+  const location = useLocation();
+  const { gaTrackingId } = useLoaderData() as LoaderData;
+
+  useEffect(() => {
+    if (gaTrackingId?.length) {
+      gtag.pageview(location.pathname, gaTrackingId);
+    }
+  }, [location, gaTrackingId]);
+
   return (
     <html lang="en">
       <head>
@@ -96,6 +120,30 @@ export default function App() {
         {setStylesPlaceholder()}
       </head>
       <body>
+      {process.env.NODE_ENV === "development" || !gaTrackingId ? null : (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`}
+            />
+            <script
+              async
+              id="gtag-init"
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${gaTrackingId}', {
+                  page_path: window.location.pathname,
+                });
+              `,
+              }}
+            />
+          </>
+        )}
+
         <AppLayout>
           <Outlet />
           <ScrollRestoration />
