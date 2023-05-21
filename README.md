@@ -2,6 +2,10 @@
 
 - [Remix Docs](https://remix.run/docs)
 
+This blog was bootstrapped with the template for [Remix + Netlify](https://github.com/netlify/remix-template/tree/main), so the following instructions assume you have a Netlify account and are familiar with the process of setting up and deploying on Netlify.
+
+On top of that, this project adds a GraphQL CMS as a dependency (in this case [hygraph](https://hygraph.com/) is used). If you want to use another CMS, changes to env var and graphql libraries might be necessary.
+
 ## Netlify Setup
 
 1. Install the [Netlify CLI](https://www.netlify.com/products/dev/):
@@ -31,6 +35,8 @@ netlify init
 ## Development
 
 The Netlify CLI starts your app in development mode, rebuilding assets on file changes.
+
+After copying and renaming `.env.dist` to `.env` and setting up env variables for accessing content in your GraphQL CMS (`GRAPH_CMS_URL` and  `GRAPH_CMS_PAT`), you can run the following command to start up the server in development mode:
 
 ```sh
 npm run dev
