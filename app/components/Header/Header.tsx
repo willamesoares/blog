@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "remix";
 
 import { GAEventAction } from "~/types/ga-events.type";
 import * as gtag from "~/utils/gtags.client";
@@ -6,6 +7,7 @@ import * as gtag from "~/utils/gtags.client";
 import * as S from "./Header.styles";
 
 const Header = () => {
+  const navigate = useNavigate();
 
   const Links = {
     github: 'https://github.com/willamesoares',
@@ -25,41 +27,43 @@ const Header = () => {
 
   return (
     <S.Wrapper>
-      <S.Title>Will Soares</S.Title>
-      <S.SocialLinks>
-        <a
-          href={Links.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => handleSocialLinkClick('github', Links.github)}
-        >
-          <img src="/github-icon.svg" alt="github profile" />
-        </a>
-        <a
-          href={Links.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => handleSocialLinkClick('github', Links.linkedin)}
-        >
-          <img src="/linkedin-icon.svg" alt="linkedin profile" />
-        </a>
-        <a
-          href={Links.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => handleSocialLinkClick('github', Links.twitter)}
-        >
-          <img src="/twitter-icon.svg" alt="twitter profile" />
-        </a>
-        <a
-          href={Links.spotify}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => handleSocialLinkClick('github', Links.spotify)}
-        >
-          <img src="/spotify-icon.svg" alt="spotify profile" />
-        </a>
-      </S.SocialLinks>
+      <S.ContentWrapper>
+        <S.Title onClick={() => navigate('/') }>Will Soares</S.Title>
+        <S.SocialLinks>
+          <a
+            href={Links.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => handleSocialLinkClick('github', Links.github)}
+          >
+            <img src="/github-icon.svg" alt="github profile" />
+          </a>
+          <a
+            href={Links.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => handleSocialLinkClick('github', Links.linkedin)}
+          >
+            <img src="/linkedin-icon.svg" alt="linkedin profile" />
+          </a>
+          <a
+            href={Links.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => handleSocialLinkClick('github', Links.twitter)}
+          >
+            <img src="/twitter-icon.svg" alt="twitter profile" />
+          </a>
+          <a
+            href={Links.spotify}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => handleSocialLinkClick('github', Links.spotify)}
+          >
+            <img src="/spotify-icon.svg" alt="spotify profile" />
+          </a>
+        </S.SocialLinks>
+    </S.ContentWrapper>
     </S.Wrapper>
   );
 };

@@ -8,7 +8,8 @@ export const Title = styled.h3`
   margin-bottom: 0.8rem;
 
   a {
-    color: #457be6;
+    color: #2ea086;
+    text-decoration: none;
 
     &:visited {
       color: purple;

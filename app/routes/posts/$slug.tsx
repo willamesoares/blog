@@ -9,6 +9,7 @@ import { Post } from "~/types";
 
 import Article from "~/components/Article/Article";
 import CommentSection from "~/components/CommentSection/CommentSection";
+import Header from "~/components/Header/Header";
 
 export const meta: MetaFunction = ({ data }: { data: { post: Post } }) => {
   return { title: `${data?.post?.title} | @soawillb` };
@@ -60,7 +61,7 @@ export default function PostPage() {
 
   return (
     <>
-      <Link to="/"> &lt; Home</Link>
+      <Header />
       <Article {...post} />
       <Link to="/"> &lt; Home</Link>
       <CommentSection />

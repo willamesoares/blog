@@ -37,7 +37,7 @@ export let loader: LoaderFunction = async () => {
 const PostsList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
 `;
 
 export default function HomePage() {
