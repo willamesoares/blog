@@ -1,58 +1,84 @@
-# Welcome to Remix!
+# Will Soares' Blog
 
-- [Remix Docs](https://remix.run/docs)
+A personal blog built with [Remix](https://remix.run/) and deployed on [Netlify](https://www.netlify.com/). Posts are managed through [Hygraph](https://hygraph.com/), a GraphQL-based headless CMS.
 
-This blog was bootstrapped with the template for [Remix + Netlify](https://github.com/netlify/remix-template/tree/main), so the following instructions assume you have a Netlify account and are familiar with the process of setting up and deploying on Netlify.
+## Prerequisites
 
-On top of that, this project adds a GraphQL CMS as a dependency (in this case [hygraph](https://hygraph.com/) is used). If you want to use another CMS, changes to env var and graphql libraries might be necessary.
+- [Node.js](https://nodejs.org/) >= 14
+- [Netlify CLI](https://www.netlify.com/products/dev/)
+- A [Hygraph](https://hygraph.com/) account with a configured project
 
-## Netlify Setup
+## Getting Started
 
-1. Install the [Netlify CLI](https://www.netlify.com/products/dev/):
+### 1. Install dependencies
+
+```sh
+npm install
+```
+
+### 2. Install the Netlify CLI
 
 ```sh
 npm i -g netlify-cli
 ```
 
-If you have previously installed the Netlify CLI, you should update it to the latest version:
+If you have previously installed it, update to the latest version:
 
 ```sh
 npm i -g netlify-cli@latest
 ```
 
-2. Sign up and log in to Netlify:
+### 3. Log in to Netlify and initialize the site
 
 ```sh
 netlify login
-```
-
-3. Create a new site:
-
-```sh
 netlify init
 ```
 
-## Development
+### 4. Set up environment variables
 
-The Netlify CLI starts your app in development mode, rebuilding assets on file changes.
+Copy the `.env.dist` template to `.env` and fill in the values:
 
-After copying and renaming `.env.dist` to `.env` and setting up env variables for accessing content in your GraphQL CMS (`GRAPH_CMS_URL` and  `GRAPH_CMS_PAT`), you can run the following command to start up the server in development mode:
+```sh
+cp .env.dist .env
+```
+
+| Variable | Required | Description |
+|---|---|---|
+| `GRAPH_CMS_URL` | Yes | Hygraph GraphQL API endpoint |
+| `GRAPH_CMS_PAT` | Yes | Hygraph Personal Access Token |
+| `GA_TRACKING_ID` | No | Google Analytics tracking ID |
+
+### 5. Run the development server
 
 ```sh
 npm run dev
 ```
 
-Open up [http://localhost:3000](http://localhost:3000), and you should be ready to go!
+Open [http://localhost:3000](http://localhost:3000) to view the blog.
+
+## Available Scripts
+
+| Script | Description |
+|---|---|
+| `npm run dev` | Start the development server with hot reloading |
+| `npm run build` | Build the app for production |
+| `npm start` | Run the production build locally |
 
 ## Deployment
 
-There are two ways to deploy your app to Netlify, you can either link your app to your git repo and have it auto deploy changes to Netlify, or you can deploy your app manually. If you've followed the setup instructions already, all you need to do is run this:
+You can link your app to a git repo for automatic deploys, or deploy manually:
 
 ```sh
 npm run build
-# preview deployment
+
+# Preview deployment
 netlify deploy
 
-# production deployment
+# Production deployment
 netlify deploy --prod
 ```
+
+## Documentation
+
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for a detailed overview of the project architecture, components, dependencies, and Remix features used.
