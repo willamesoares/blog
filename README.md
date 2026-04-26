@@ -1,6 +1,6 @@
-# Will Soares' Blog
+# Personal Blog
 
-A personal blog built with [Remix](https://remix.run/) and deployed on [Netlify](https://www.netlify.com/). Posts are managed through [Hygraph](https://hygraph.com/), a GraphQL-based headless CMS.
+Built with [Remix](https://remix.run/) and deployed on [Netlify](https://www.netlify.com/). Posts are managed through [Hygraph](https://hygraph.com/), a GraphQL-based headless CMS.
 
 ## Prerequisites
 
