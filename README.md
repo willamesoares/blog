@@ -58,16 +58,18 @@ npm run build
   └── tsx scripts/prerender.ts
         ├── fetches all posts from Hygraph
         ├── renders each page to HTML
-        └── writes dist/client/posts/index.html
-            dist/client/posts/[slug]/index.html  (one per post)
-            dist/client/data/*.json               (static data for client navigation)
+        └── writes dist/client/index.html              (tech posts list)
+            dist/client/non-tech/index.html             (off-topic posts list)
+            dist/client/post/[slug]/index.html          (one per post)
+            dist/client/data/*.json                     (static data for client navigation)
 ```
 
 ## Documentation
 
 The `docs/` folder covers the project in more detail:
 
-- [`docs/overview.md`](docs/overview.md) — architecture, tech stack, key files
+- [`docs/overview.md`](docs/overview.md) — architecture, project structure, hydration & data flow
 - [`docs/local-development.md`](docs/local-development.md) — dev setup and how the Vite proxy works
 - [`docs/hygraph-integration.md`](docs/hygraph-integration.md) — GraphQL queries, content model, webhook setup
 - [`docs/netlify-deployment.md`](docs/netlify-deployment.md) — deploy process, environment variables, build hooks
+- [`docs/contributing.md`](docs/contributing.md) — how to add routes, change Hygraph fields, design tokens, component reference

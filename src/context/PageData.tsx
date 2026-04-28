@@ -1,8 +1,8 @@
 import { createContext, useContext, ReactNode } from 'react'
 
-// Replaces Remix's useLoaderData. During SSG, the prerender script injects data
-// via this provider. On client-side navigation, components fall back to fetching
-// from static JSON files in /data/*.json.
+// During SSG the prerender script injects boot data via this provider. On
+// client-side navigation, components fall back to fetching from static JSON
+// files in /data/*.json.
 
 const PageDataContext = createContext<unknown>(null)
 

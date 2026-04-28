@@ -49,17 +49,18 @@ npm run build
   └── tsx scripts/prerender.ts
         ├── fetches all posts from Hygraph
         ├── renders each page to HTML (React → string)
-        └── writes dist/client/posts/index.html
-            dist/client/posts/[slug]/index.html  (one per post)
-            dist/client/data/*.json               (static API for client navigation)
+        └── writes dist/client/index.html              (tech posts list)
+            dist/client/non-tech/index.html             (off-topic posts list)
+            dist/client/post/[slug]/index.html          (one per post)
+            dist/client/data/*.json                     (static API for client navigation)
 ```
 
-## No Serverless Functions
+## No Runtime Functions
 
-Unlike the previous Remix setup, this project has **no runtime serverless functions**. Every request is served from a static HTML file on the CDN. This means:
+The site is fully static — every request is served as a pre-rendered HTML file from Netlify's CDN. There are no serverless functions and no runtime data fetching, which means:
 
-- Zero cold start latency
+- Zero cold-start latency
 - No per-request compute cost
 - Simpler architecture (no function logs to debug)
 
-The only "dynamic" behaviour is client-side navigation fetching `/data/*.json` files — which are also static files on the CDN.
+The only "dynamic" behaviour is client-side navigation fetching `/data/*.json` files — which are also static assets on the CDN.
