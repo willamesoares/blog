@@ -21,30 +21,30 @@ export default function PostItem(props: Post) {
   }
 
   return (
-    <div>
-      <h3 className="text-2xl tablet:text-[1.7rem] mb-[0.8rem]">
+    <article>
+      <h3 className="text-xl tablet:text-2xl mb-2 leading-snug">
         <Link
           to={`/post/${props.slug}`}
           onClick={handlePostLinkClick}
-          className="text-brand visited:text-purple-700 no-underline"
+          className="text-text hover:text-brand transition-colors no-underline"
         >
           {props.title}
         </Link>
       </h3>
-      <div className="flex items-center gap-2 flex-wrap text-[1.1rem]">
-        <small className="font-bold">
+      <div className="flex items-center gap-2 flex-wrap text-[0.9rem] text-text-muted">
+        <small>
           {getLongFormattedDate(props.date)} &bull;{' '}
           {calculateReadTime(props.content)} min read
         </small>
         {props.tags?.length ? (
-          <div className="inline-flex gap-2">
+          <div className="inline-flex gap-1.5">
             {props.tags.map((tag: TagProps) => (
               <Tag key={tag.name} {...tag} />
             ))}
           </div>
         ) : null}
       </div>
-      <p className="mt-2 text-[1.1rem]">{props.description}</p>
-    </div>
+      <p className="mt-2 text-[1rem] text-text-muted">{props.description}</p>
+    </article>
   )
 }

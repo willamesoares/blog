@@ -9,7 +9,7 @@ export default function CommentSection() {
     const config: ScriptConfig = {
       src: 'https://utteranc.es/client.js',
       repo: 'willamesoares/blog',
-      theme: 'icy-dark',
+      theme: 'github-light',
       label: 'blog post comments',
       async: true,
       'issue-term': 'title',
@@ -23,5 +23,13 @@ export default function CommentSection() {
     rootRef.current?.appendChild(script)
   }, [])
 
-  return <div ref={rootRef} />
+  return (
+    <section className="mt-16 pt-8 border-t border-border">
+      <h3 className="text-xl mb-4">Comments</h3>
+      <div
+        ref={rootRef}
+        className="[&_.utterances]:max-w-full"
+      />
+    </section>
+  )
 }

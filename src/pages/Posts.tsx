@@ -8,7 +8,7 @@ import {
 } from "~/context/PageData";
 import { loadPosts } from "~/api/cms";
 import PostItem from "~/components/PostItem";
-import Tabs from "~/components/Tabs";
+import PostsNav from "~/components/PostsNav";
 
 type PostsProps = {
   type: string;
@@ -16,7 +16,6 @@ type PostsProps = {
 
 export default function Posts({ type }: PostsProps) {
   const isNonTech = type === POST_TYPE.NON_TECH;
-  const activeTab = isNonTech ? 1 : 0;
 
   const initialData = usePageData<{ posts: Post[]; type?: string }>();
   // Only trust the prerendered payload when its `type` matches this route's
@@ -68,11 +67,11 @@ export default function Posts({ type }: PostsProps) {
 
   return (
     <>
-      <Tabs activeTab={activeTab} />
+      <PostsNav />
       {loading ? (
-        <p className="mt-10 text-center">Loading...</p>
+        <p className="mt-10 text-center text-text-muted">Loading...</p>
       ) : (
-        <div className="flex flex-col gap-10 mt-6">
+        <div className="flex flex-col gap-10 mt-4">
           {sortedPosts.map((post) => (
             <PostItem key={post.slug} {...post} />
           ))}

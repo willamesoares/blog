@@ -22,15 +22,16 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-header-bg fixed right-0 left-0 top-0 z-10">
-      <div className="flex justify-between items-center max-w-[768px] mx-auto px-[1.125rem]">
-        <h2
-          className="text-2xl tablet:text-[1.8rem] tracking-[3px] cursor-pointer"
+    <header className="bg-header-bg fixed right-0 left-0 top-0 z-10 border-b border-border">
+      <div className="flex justify-between items-center max-w-[768px] mx-auto px-5 py-4 tablet:py-5">
+        <button
+          type="button"
           onClick={() => navigate('/')}
+          className="text-xl tablet:text-2xl font-bold tracking-tight text-text hover:text-brand transition-colors"
         >
           Will Soares
-        </h2>
-        <div className="flex gap-2 tablet:gap-4">
+        </button>
+        <div className="flex gap-3 tablet:gap-4">
           {Object.entries(links).map(([name, href]) => (
             <a
               key={name}
@@ -38,11 +39,13 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => handleSocialLinkClick(name, href)}
+              className="opacity-60 hover:opacity-100 transition-opacity"
+              aria-label={`${name} profile`}
             >
               <img
                 src={`/${name}-icon.svg`}
-                alt={`${name} profile`}
-                className="w-[1.3rem] h-[1.3rem] cursor-pointer"
+                alt=""
+                className="w-[1.5rem] h-[1.5rem]"
               />
             </a>
           ))}

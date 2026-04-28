@@ -2,7 +2,7 @@ import { Tag as TagProps } from '~/types'
 
 export default function Tag({ name }: TagProps) {
   return (
-    <span className="bg-[lightblue] text-black text-[0.8rem] rounded-[0.1rem] px-[0.4rem] py-[0.3rem] font-bold">
+    <span className="bg-brand-soft text-brand text-[0.75rem] rounded-full px-2 py-0.5 font-medium">
       {name}
     </span>
   )

@@ -61,7 +61,15 @@ export default function Post() {
     return (
       <div className="text-center mt-10">
         <h3>Post not found.</h3>
-        <Link to="/">&lt; Back to posts</Link>
+        <Link
+          to="/"
+          className="group inline-flex items-center gap-2 text-text-muted hover:text-brand transition-colors mt-4"
+        >
+          <span className="transition-transform group-hover:-translate-x-0.5">
+            ←
+          </span>
+          Back to posts
+        </Link>
       </div>
     );
   }
@@ -73,8 +81,14 @@ export default function Post() {
   return (
     <>
       <Article {...post} />
-      <Link to="/" className="text-brand no-underline">
-        &lt; Back to posts
+      <Link
+        to="/"
+        className="group inline-flex items-center gap-2 text-text-muted hover:text-brand transition-colors mt-10"
+      >
+        <span className="transition-transform group-hover:-translate-x-0.5">
+          ←
+        </span>
+        Back to posts
       </Link>
       <CommentSection />
     </>
