@@ -80,7 +80,6 @@ export const loadPosts = async (
   }
 
   const slug = isTech ? "tech" : "non-tech";
-  return fetchCms<{ posts: Post[] }>(GetPostsQuery, { isTech });
 
   try {
     const res = await fetch(`/data/posts-${slug}.json`);
