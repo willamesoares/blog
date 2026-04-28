@@ -1,11 +1,12 @@
 # Personal Blog
 
-Built with [Remix](https://remix.run/) and deployed on [Netlify](https://www.netlify.com/). Posts are managed through [Hygraph](https://hygraph.com/), a GraphQL-based headless CMS.
+Built with [React](https://react.dev/) and [Vite](https://vite.dev/), deployed on [Netlify](https://www.netlify.com/) as a static site. Posts are managed through [Hygraph](https://hygraph.com/), a GraphQL-based headless CMS.
+
+Pages are pre-rendered at build time (SSG) from Hygraph content and served from Netlify's CDN — no serverless functions at runtime.
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) >= 14
-- [Netlify CLI](https://www.netlify.com/products/dev/)
+- [Node.js](https://nodejs.org/) >= 18
 - A [Hygraph](https://hygraph.com/) account with a configured project
 
 ## Getting Started
@@ -16,69 +17,57 @@ Built with [Remix](https://remix.run/) and deployed on [Netlify](https://www.net
 npm install
 ```
 
-### 2. Install the Netlify CLI
-
-```sh
-npm i -g netlify-cli
-```
-
-If you have previously installed it, update to the latest version:
-
-```sh
-npm i -g netlify-cli@latest
-```
-
-### 3. Log in to Netlify and initialize the site
-
-```sh
-netlify login
-netlify init
-```
-
-### 4. Set up environment variables
-
-Copy the `.env.dist` template to `.env` and fill in the values:
+### 2. Set up environment variables
 
 ```sh
 cp .env.dist .env
 ```
 
+Fill in the values in `.env`:
+
 | Variable | Required | Description |
 |---|---|---|
 | `GRAPH_CMS_URL` | Yes | Hygraph GraphQL API endpoint |
 | `GRAPH_CMS_PAT` | Yes | Hygraph Personal Access Token |
-| `GA_TRACKING_ID` | No | Google Analytics tracking ID |
+| `VITE_GA_TRACKING_ID` | No | Google Analytics measurement ID (e.g. `G-XXXXXXXXXX`) |
 
-### 5. Run the development server
+### 3. Start the development server
 
 ```sh
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the blog.
+Open [http://localhost:5173](http://localhost:5173) to view the blog.
+
+No Netlify CLI needed — Vite handles local development directly.
 
 ## Available Scripts
 
 | Script | Description |
 |---|---|
-| `npm run dev` | Start the development server with hot reloading |
-| `npm run build` | Build the app for production |
-| `npm start` | Run the production build locally |
+| `npm run dev` | Start the development server |
+| `npm run build` | Build for production (client bundle + SSR bundle + prerender all pages) |
+| `npm run preview` | Serve the production build locally |
 
-## Deployment
+## How the Build Works
 
-You can link your app to a git repo for automatic deploys, or deploy manually:
-
-```sh
+```
 npm run build
-
-# Preview deployment
-netlify deploy
-
-# Production deployment
-netlify deploy --prod
+  ├── vite build                   # bundles React app + assets → dist/client/
+  ├── vite build --ssr             # builds server-side render bundle → dist/server/
+  └── tsx scripts/prerender.ts
+        ├── fetches all posts from Hygraph
+        ├── renders each page to HTML
+        └── writes dist/client/posts/index.html
+            dist/client/posts/[slug]/index.html  (one per post)
+            dist/client/data/*.json               (static data for client navigation)
 ```
 
 ## Documentation
 
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for a detailed overview of the project architecture, components, dependencies, and Remix features used.
+The `docs/` folder covers the project in more detail:
+
+- [`docs/overview.md`](docs/overview.md) — architecture, tech stack, key files
+- [`docs/local-development.md`](docs/local-development.md) — dev setup and how the Vite proxy works
+- [`docs/hygraph-integration.md`](docs/hygraph-integration.md) — GraphQL queries, content model, webhook setup
+- [`docs/netlify-deployment.md`](docs/netlify-deployment.md) — deploy process, environment variables, build hooks

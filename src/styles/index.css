@@ -1,0 +1,110 @@
+@import "tailwindcss";
+@import "./highlight.css";
+
+@theme {
+  --color-brand: #2ea086;
+  --color-header-bg: #f1f9f7;
+  --color-text: #222222;
+  --font-sans: "PT Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Oswald", sans-serif;
+  --breakpoint-tablet: 768px;
+}
+
+/* Self-hosted fonts */
+@font-face {
+  font-family: "PT Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("PT Sans"), url("/fonts/pt-sans/PTSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PT Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: local("PT Sans Bold"), url("/fonts/pt-sans/PTSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PT Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: local("PT Sans Italic"), url("/fonts/pt-sans/PTSans-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PT Sans";
+  font-style: italic;
+  font-weight: 700;
+  src: local("PT Sans Bold Italic"), url("/fonts/pt-sans/PTSans-BoldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Oswald"), url("/fonts/oswald/Oswald-Bold.ttf") format("truetype");
+}
+
+/* Base styles */
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+a {
+  color: var(--color-brand);
+  text-decoration: none;
+}
+
+a:visited {
+  color: purple;
+}
+
+/* Article prose styles (applied to markdown-rendered content) */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  margin-top: 2.5rem;
+}
+
+.prose p {
+  margin-top: 1.8rem;
+}
+
+.prose img {
+  margin: 0 auto;
+  max-height: 35rem;
+}
+
+.prose code:not([class]) {
+  background-color: #e9e9e9;
+  font-size: 80%;
+  padding: 2px 4px;
+}
+
+.prose pre {
+  font-size: 1rem;
+}
+
+.prose ul li {
+  padding-bottom: 0.5rem;
+}
+
+.prose mark {
+  padding-top: 0.2rem;
+}

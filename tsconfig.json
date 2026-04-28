@@ -1,20 +1,21 @@
 {
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["src", "scripts", "index.html", "vite.config.ts"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "target": "ES2022",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "types": ["vite/client"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "target": "ES2019",
-    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
-    },
-
-    // Remix takes care of building everything in `remix build`.
-    "noEmit": true
+      "~/*": ["./src/*"]
+    }
   }
 }
