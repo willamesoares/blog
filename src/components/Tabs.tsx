@@ -6,8 +6,8 @@ type TabsProps = {
 }
 
 const tabs = [
-  { label: 'tech posts', path: `/posts?type=${POST_TYPE.TECH}` },
-  { label: 'everything else', path: `/posts?type=${POST_TYPE.NON_TECH}` },
+  { label: 'tech posts', path: '/' },
+  { label: 'everything else', path: `/${POST_TYPE.NON_TECH}` },
 ]
 
 export default function Tabs({ activeTab = 0 }: TabsProps) {

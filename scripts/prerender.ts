@@ -130,15 +130,29 @@ async function prerender() {
   writeJson(path.join(dataDir, "posts-non-tech.json"), nonTechData);
   console.log("  Written: /data/posts-tech.json, /data/posts-non-tech.json");
 
-  // Render /posts (defaults to tech tab)
-  const postsHtml = render("/posts", techData);
-  writeHtml(
-    path.join(distClient, "posts/index.html"),
-    buildHtml(template, postsHtml, techData),
-  );
-  console.log("  Written: /posts/index.html");
+  // Tag each list payload with its tab so the client can detect when an SPA
+  // fallback or misconfigured host serves the wrong HTML for a route.
+  const techPayload = { ...techData, type: "tech" };
+  const nonTechPayload = { ...nonTechData, type: "non-tech" };
 
-  // Fetch and render each individual post
+  // Render / (tech home) — overwrites the SPA template, but the template was
+  // already read into memory above.
+  const techHtml = render("/", techPayload);
+  writeHtml(
+    path.join(distClient, "index.html"),
+    buildHtml(template, techHtml, techPayload),
+  );
+  console.log("  Written: /index.html");
+
+  // Render /non-tech
+  const nonTechHtml = render("/non-tech", nonTechPayload);
+  writeHtml(
+    path.join(distClient, "non-tech/index.html"),
+    buildHtml(template, nonTechHtml, nonTechPayload),
+  );
+  console.log("  Written: /non-tech/index.html");
+
+  // Fetch and render each individual post under /post/:slug
   const allSlugs = [
     ...techData.posts.map((p: any) => p.slug),
     ...nonTechData.posts.map((p: any) => p.slug),
@@ -150,12 +164,12 @@ async function prerender() {
         slug,
       });
       writeJson(path.join(dataDir, `posts-${slug}.json`), postData);
-      const postHtml = render(`/posts/${slug}`, postData);
+      const postHtml = render(`/post/${slug}`, postData);
       writeHtml(
-        path.join(distClient, `posts/${slug}/index.html`),
+        path.join(distClient, `post/${slug}/index.html`),
         buildHtml(template, postHtml, postData),
       );
-      console.log(`  Written: /posts/${slug}/index.html`);
+      console.log(`  Written: /post/${slug}/index.html`);
     }),
   );
 

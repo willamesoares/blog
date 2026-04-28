@@ -3,10 +3,14 @@
   publish = "dist/client"
 
 [[redirects]]
-  from = "/"
-  to = "/posts"
+  from = "/posts"
+  to = "/"
   status = 301
-  force = true
+
+[[redirects]]
+  from = "/posts/:slug"
+  to = "/post/:slug"
+  status = 301
 
 [[headers]]
   for = "/assets/*"

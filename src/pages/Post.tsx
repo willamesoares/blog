@@ -1,8 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import highlight from "highlight.js";
 import { Post as PostType } from "~/types";
-import { usePageData } from "~/context/PageData";
+import {
+  usePageData,
+  isBootConsumed,
+  consumeBootData,
+} from "~/context/PageData";
 import { loadPost } from "~/api/cms";
 import Article from "~/components/Article";
 import CommentSection from "~/components/CommentSection";
@@ -10,20 +14,21 @@ import CommentSection from "~/components/CommentSection";
 export default function Post() {
   const { slug } = useParams<{ slug: string }>();
   const initialData = usePageData<{ post: PostType }>();
-  const [post, setPost] = useState<PostType | null>(initialData?.post ?? null);
+  const useInitial =
+    !isBootConsumed() && !!initialData?.post && initialData.post.slug === slug;
+  const [post, setPost] = useState<PostType | null>(
+    useInitial ? (initialData?.post ?? null) : null,
+  );
   const [notFound, setNotFound] = useState(false);
-  // initialData is only valid for the first page rendered. After client-side
-  // navigation it still points at the original page's data, so we must refetch.
-  const consumedInitialData = useRef(false);
 
   useEffect(() => {
     if (!slug) return;
 
-    if (!consumedInitialData.current && initialData?.post?.slug === slug) {
-      consumedInitialData.current = true;
+    if (!isBootConsumed() && initialData?.post?.slug === slug) {
+      consumeBootData();
       return;
     }
-    consumedInitialData.current = true;
+    consumeBootData();
 
     let cancelled = false;
     setPost(null);
@@ -56,7 +61,7 @@ export default function Post() {
     return (
       <div className="text-center mt-10">
         <h3>Post not found.</h3>
-        <Link to="/posts">&lt; Back to posts</Link>
+        <Link to="/">&lt; Back to posts</Link>
       </div>
     );
   }
@@ -68,7 +73,7 @@ export default function Post() {
   return (
     <>
       <Article {...post} />
-      <Link to="/posts" className="text-brand no-underline">
+      <Link to="/" className="text-brand no-underline">
         &lt; Back to posts
       </Link>
       <CommentSection />

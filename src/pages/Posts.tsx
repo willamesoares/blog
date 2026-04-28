@@ -1,32 +1,47 @@
-import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Post } from "~/types";
 import { POST_TYPE } from "~/constants";
-import { usePageData } from "~/context/PageData";
+import {
+  usePageData,
+  isBootConsumed,
+  consumeBootData,
+} from "~/context/PageData";
 import { loadPosts } from "~/api/cms";
 import PostItem from "~/components/PostItem";
 import Tabs from "~/components/Tabs";
 
-export default function Posts() {
-  const [searchParams] = useSearchParams();
-  const postType = searchParams.get("type");
-  const isNonTech = postType === POST_TYPE.NON_TECH;
+type PostsProps = {
+  type: string;
+};
+
+export default function Posts({ type }: PostsProps) {
+  const isNonTech = type === POST_TYPE.NON_TECH;
   const activeTab = isNonTech ? 1 : 0;
 
-  const initialData = usePageData<{ posts: Post[] }>();
-  const [posts, setPosts] = useState<Post[]>(initialData?.posts ?? []);
-  const [loading, setLoading] = useState(!initialData?.posts?.length);
-  // initialData comes from a single global context set at app boot. It only
-  // matches the first page rendered; on every subsequent navigation we must
-  // fetch fresh data instead of trusting the stale value.
-  const consumedInitialData = useRef(false);
+  const initialData = usePageData<{ posts: Post[]; type?: string }>();
+  // Only trust the prerendered payload when its `type` matches this route's
+  // tab. Otherwise the host served the wrong HTML for the URL (e.g. an SPA
+  // fallback hitting /index.html for /non-tech) and we must refetch.
+  const useInitial =
+    !isBootConsumed() &&
+    initialData?.type === type &&
+    !!initialData?.posts?.length;
+
+  const [posts, setPosts] = useState<Post[]>(
+    useInitial ? (initialData?.posts ?? []) : [],
+  );
+  const [loading, setLoading] = useState(!useInitial);
 
   useEffect(() => {
-    if (!consumedInitialData.current && initialData?.posts?.length) {
-      consumedInitialData.current = true;
+    if (
+      !isBootConsumed() &&
+      initialData?.type === type &&
+      initialData?.posts?.length
+    ) {
+      consumeBootData();
       return;
     }
-    consumedInitialData.current = true;
+    consumeBootData();
 
     let cancelled = false;
     setLoading(true);
@@ -37,7 +52,7 @@ export default function Posts() {
         setPosts(data.posts ?? []);
         setLoading(false);
       })
-      .catch((e) => {
+      .catch(() => {
         if (cancelled) return;
         setLoading(false);
       });
@@ -45,7 +60,7 @@ export default function Posts() {
     return () => {
       cancelled = true;
     };
-  }, [postType, isNonTech, initialData]);
+  }, [type, isNonTech, initialData]);
 
   const sortedPosts = [...posts].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),

@@ -24,7 +24,7 @@ export default function PostItem(props: Post) {
     <div>
       <h3 className="text-2xl tablet:text-[1.7rem] mb-[0.8rem]">
         <Link
-          to={`/posts/${props.slug}`}
+          to={`/post/${props.slug}`}
           onClick={handlePostLinkClick}
           className="text-brand visited:text-purple-700 no-underline"
         >
