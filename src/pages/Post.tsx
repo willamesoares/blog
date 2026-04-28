@@ -10,6 +10,7 @@ import {
 import { loadPost } from "~/api/cms";
 import Article from "~/components/Article";
 import CommentSection from "~/components/CommentSection";
+import { ArticleSkeleton } from "~/components/Skeleton";
 
 export default function Post() {
   const { slug } = useParams<{ slug: string }>();
@@ -75,7 +76,7 @@ export default function Post() {
   }
 
   if (!post) {
-    return <p className="mt-10 text-center">Loading...</p>;
+    return <ArticleSkeleton />;
   }
 
   return (
