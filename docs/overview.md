@@ -83,6 +83,23 @@ The site never fetches Hygraph at runtime in production. Data reaches React by t
 
 This is why each prerendered list payload is tagged with a `type` field (`tech` or `non-tech`): if a misconfigured host serves the wrong HTML for a route, the page detects the mismatch and refetches instead of rendering stale data.
 
+### Entry points
+
+The same `<App />` is rendered through two different entry files because SSG and the browser need different React runtimes:
+
+| | `entry-server.tsx` | `entry-client.tsx` |
+|---|---|---|
+| Runs in | Node, at build time | Browser, on every page load |
+| React API | `renderToString` (`react-dom/server`) | `hydrateRoot` (prod) / `createRoot` (dev) |
+| Router | `StaticRouter` (route from a fixed URL) | `BrowserRouter` (real history + click handling) |
+| Boot data | Passed in by `prerender.ts` as a function arg | Read from `window.__INITIAL_DATA__` |
+| Loads CSS | No | Yes — `import '~/styles/index.css'` |
+| Output | An HTML string spliced into `index.html` | An attached React root running in the page |
+
+The dev-only `createRoot` branch in `entry-client.tsx` exists because the dev `index.html` only contains the `<!--app-html-->` placeholder comment — there's no SSR markup to hydrate against, and React 18 silently drops state updates if the trees don't match. In production, `hydrateRoot` attaches to the prerendered DOM without re-rendering.
+
+The server bundle ends up at `dist/server/entry-server.js` after `vite build --ssr` and is `import()`ed by `scripts/prerender.ts`. It's never deployed — Netlify only publishes `dist/client/`.
+
 ## Environment Variables
 
 | Variable | Required | Description |
