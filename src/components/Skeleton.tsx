@@ -22,6 +22,24 @@ export function PostItemSkeleton() {
   )
 }
 
+export function PoemCardSkeleton() {
+  return (
+    <div
+      role="status"
+      aria-label="Loading poem"
+      className="bg-poem-card border border-poem-border rounded-lg p-6 tablet:p-8 mb-6 break-inside-avoid"
+    >
+      <Skeleton className="h-6 tablet:h-7 w-1/3 mb-5" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-4/5" />
+        <Skeleton className="h-4 w-3/5" />
+        <Skeleton className="h-4 w-2/3" />
+        <Skeleton className="h-4 w-1/2" />
+      </div>
+    </div>
+  )
+}
+
 export function ArticleSkeleton() {
   return (
     <div role="status" aria-label="Loading article" className="my-4">

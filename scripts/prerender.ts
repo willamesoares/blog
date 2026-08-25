@@ -43,6 +43,15 @@ const GetAllPosts = gql`
   }
 `;
 
+const GetAllPoems = gql`
+  query Poems {
+    poems {
+      name
+      content
+    }
+  }
+`;
+
 const GetPostBySlug = gql`
   query MyQuery($slug: String!) {
     post(where: { slug: $slug }) {
@@ -134,6 +143,20 @@ async function prerender() {
   );
   console.log("  Written: /index.html");
 
+  console.log("Fetching poems from Hygraph...");
+
+  const poemsData = await client.request<{ poems: unknown[] }>(GetAllPoems);
+
+  writeJson(path.join(dataDir, "poems.json"), poemsData);
+  console.log("  Written: /data/poems.json");
+
+  const poemsHtml = render("/poems", poemsData);
+  writeHtml(
+    path.join(distClient, "poems/index.html"),
+    buildHtml(template, poemsHtml, poemsData),
+  );
+  console.log("  Written: /poems/index.html");
+
   // Fetch and render each individual post under /post/:slug
   const allSlugs = postsData.posts.map((p: any) => p.slug);
 
@@ -152,7 +175,7 @@ async function prerender() {
     }),
   );
 
-  console.log(`\nPrerender complete. ${allSlugs.length + 1} pages generated.`);
+  console.log(`\nPrerender complete. ${allSlugs.length + 2} pages generated.`);
 }
 
 prerender().catch((err) => {

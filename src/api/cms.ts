@@ -1,5 +1,5 @@
 import { GraphQLClient, RequestDocument, gql } from "graphql-request";
-import { Post } from "~/types";
+import { Post, Poem } from "~/types";
 
 // In dev mode, requests go through Vite's proxy (/graphql) which adds the auth header server-side.
 // In the prerender script (build time), this function is called directly with process.env.
@@ -67,6 +67,15 @@ const GetPostBySlugQuery = gql`
   }
 `;
 
+const GetPoemsQuery = gql`
+  query Poems {
+    poems {
+      name
+      content
+    }
+  }
+`;
+
 // In dev: skip the static-JSON detour entirely and hit the CMS through the
 // Vite proxy. In prod: prefer the prerendered JSON for fast client-side nav,
 // fall back to the CMS if it's missing. The DEV branch is dead-code-eliminated
@@ -83,6 +92,20 @@ export const loadPosts = async (): Promise<{ posts: Post[] }> => {
     return await res.json();
   } catch {
     return fetchCms<{ posts: Post[] }>(GetPostsQuery);
+  }
+};
+
+export const loadPoems = async (): Promise<{ poems: Poem[] }> => {
+  if (import.meta.env.DEV) {
+    return fetchCms<{ poems: Poem[] }>(GetPoemsQuery);
+  }
+
+  try {
+    const res = await fetch(`/data/poems.json`);
+    if (!res.ok) throw new Error("not found");
+    return await res.json();
+  } catch {
+    return fetchCms<{ poems: Poem[] }>(GetPoemsQuery);
   }
 };
 

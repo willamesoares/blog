@@ -21,6 +21,11 @@
   /* Code */
   --color-code-bg: #f1efe8;
 
+  /* Poems — a softer, mossier green than --color-brand */
+  --color-poem-card: #fffffe;
+  --color-poem-border: #dde6cc;
+  --color-poem-accent: #4f6b39;
+
   /* Type */
   --font-sans: "PT Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 

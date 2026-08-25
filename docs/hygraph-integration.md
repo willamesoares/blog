@@ -1,6 +1,6 @@
 # Hygraph Integration
 
-The blog uses [Hygraph](https://hygraph.com) as a headless CMS. All content (posts, tags) is managed there and fetched via GraphQL.
+The blog uses [Hygraph](https://hygraph.com) as a headless CMS. All content (posts, tags, poems) is managed there and fetched via GraphQL.
 
 ## GraphQL Queries
 
@@ -54,6 +54,21 @@ query MyQuery($slug: String!) {
 }
 ```
 
+### Fetch poems list
+
+Used in `scripts/prerender.ts` and `src/pages/Poems.tsx`:
+
+```graphql
+query Poems {
+  poems {
+    name
+    content
+  }
+}
+```
+
+All poems are fetched in one request and rendered as stacked cards on `/poems` — no per-poem detail route.
+
 ## API Client
 
 The GraphQL client lives in `src/api/cms.ts`. It uses `graphql-request`.
@@ -78,6 +93,10 @@ Your Hygraph schema should have:
 - **Tag** model with fields:
   - `name` (String)
 
+- **Poem** model with fields:
+  - `name` (String, unique, title)
+  - `content` (String — Markdown)
+
 ## Webhook Setup (Auto-Deploy on Content Change)
 
 When you publish a post in Hygraph, you want the site to rebuild automatically.
@@ -85,8 +104,8 @@ When you publish a post in Hygraph, you want the site to rebuild automatically.
 1. **In Netlify**: go to Site settings → Build & deploy → Build hooks → Add build hook. Name it "Hygraph" and copy the URL.
 
 2. **In Hygraph**: go to Project settings → Webhooks → Create webhook:
-   - Trigger: `Published` on the `Post` model
+   - Trigger: `Published` on the `Post` model (add a second webhook, or additional trigger, for the `Poem` model so poem changes also rebuild the site)
    - URL: paste the Netlify build hook URL
    - Method: POST
 
-After this, publishing a post in Hygraph will trigger a Netlify rebuild. The site updates in ~1–2 minutes.
+After this, publishing a post or poem in Hygraph will trigger a Netlify rebuild. The site updates in ~1–2 minutes.
