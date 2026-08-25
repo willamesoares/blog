@@ -6,7 +6,7 @@ A reference for anyone making code changes to the blog. Read [`overview.md`](./o
 
 1. **Create the page component** at `src/pages/<Name>.tsx`. Pages are plain React components; they read boot data via `usePageData<T>()` and fall back to fetching when needed.
 2. **Register the route** in `src/App.tsx` inside the `<Routes>` block. Use `react-router-dom`'s `<Route path="..." element={<YourPage />} />`.
-3. **Prerender it (if you want a static HTML file at that URL)** — add a block in `scripts/prerender.ts` that mirrors the `/non-tech` handler:
+3. **Prerender it (if you want a static HTML file at that URL)** — add a block in `scripts/prerender.ts` that mirrors the home page handler:
    ```ts
    const data = await client.request(/* your query */, vars)
    const html = render('/your-path', data)
@@ -52,11 +52,11 @@ All in `src/components/`.
 | Component | Role |
 |---|---|
 | `AppLayout` | Page container — handles top padding under the fixed header and the 768px max-width column |
-| `Header` | Fixed top header with site title and social links |
-| `PostsNav` | Inline `Tech · Off-topic` toggle above the post list (uses `NavLink`) |
-| `PostItem` | Post preview card on the home and off-topic pages |
+| `Header` | Fixed top header with site title and logo |
+| `TagFilter` | Multi-select tag filter bar above the post list, syncs selection to the `?tags=` URL param |
+| `PostItem` | Post preview card on the home page |
 | `Article` | Full post detail — cover image, meta, tags, prose body |
-| `Tag` | Small pill rendered inside post meta |
+| `Tag` | Small pill rendered inside post meta (read-only display) |
 | `CommentSection` | Wraps the Utterances widget in a styled section |
 
 ## Utilities reference
@@ -89,8 +89,7 @@ Wired in `src/App.tsx`:
 - The script tags only render when `import.meta.env.PROD` **and** `VITE_GA_TRACKING_ID` is set. Local dev never loads GA.
 - A `useEffect` on `useLocation()` fires `gtag.pageview` on every route change.
 - Custom events go through `gtag.event` from `src/utils/gtags.ts`. Examples:
-  - `Header.tsx` — `social_network` clicks
-  - `PostItem.tsx` — `post_click` events tagged with `tech` or `non-tech`
+  - `PostItem.tsx` — `post_click` events, labeled with the post slug and its tags
 
 To track a new event, add an entry to `GAEventAction` / `GAEventCategory` in `src/types/ga-events.type.ts` and call `gtag.event({...})`.
 

@@ -54,7 +54,7 @@ export default function Post() {
   useEffect(() => {
     if (post) {
       highlight.highlightAll();
-      document.title = `${post.title} | @soawillb`;
+      document.title = `${post.title} | TheMindHopper`;
     }
   }, [post]);
 

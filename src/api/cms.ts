@@ -28,8 +28,8 @@ export const fetchCms = async <T>(
 };
 
 const GetPostsQuery = gql`
-  query Posts($isTech: Boolean) {
-    posts(where: { isTech: $isTech }) {
+  query Posts {
+    posts {
       title
       content
       date
@@ -72,21 +72,17 @@ const GetPostBySlugQuery = gql`
 // fall back to the CMS if it's missing. The DEV branch is dead-code-eliminated
 // from prod bundles by Vite's static replacement of `import.meta.env.DEV`.
 
-export const loadPosts = async (
-  isTech: boolean,
-): Promise<{ posts: Post[] }> => {
+export const loadPosts = async (): Promise<{ posts: Post[] }> => {
   if (import.meta.env.DEV) {
-    return fetchCms<{ posts: Post[] }>(GetPostsQuery, { isTech });
+    return fetchCms<{ posts: Post[] }>(GetPostsQuery);
   }
 
-  const slug = isTech ? "tech" : "non-tech";
-
   try {
-    const res = await fetch(`/data/posts-${slug}.json`);
+    const res = await fetch(`/data/posts.json`);
     if (!res.ok) throw new Error("not found");
     return await res.json();
   } catch {
-    return fetchCms<{ posts: Post[] }>(GetPostsQuery, { isTech });
+    return fetchCms<{ posts: Post[] }>(GetPostsQuery);
   }
 };
 

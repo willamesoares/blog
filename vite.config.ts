@@ -6,8 +6,8 @@ import fs from "fs";
 import path from "path";
 
 // Mirror Netlify's "pretty URLs" behavior in `vite preview`: for an
-// extensionless request like /non-tech, prefer /non-tech/index.html before
-// falling back to the SPA's root /index.html. Without this, vite preview
+// extensionless request like /post/some-slug, prefer /post/some-slug/index.html
+// before falling back to the SPA's root /index.html. Without this, vite preview
 // serves the root HTML for every unknown path, which embeds the wrong
 // `__INITIAL_DATA__` and only recovers after the client refetches.
 function netlifyPrettyUrlsPreview(): Plugin {

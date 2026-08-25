@@ -26,9 +26,9 @@ const distServer = path.join(root, "dist/server");
 // GraphQL queries
 // ---------------------------------------------------------------------------
 
-const GetAllTechPosts = gql`
-  query Posts($isTech: Boolean) {
-    posts(where: { isTech: $isTech }) {
+const GetAllPosts = gql`
+  query Posts {
+    posts {
       title
       content
       date
@@ -118,45 +118,24 @@ async function prerender() {
 
   console.log("Fetching posts from Hygraph...");
 
-  // Fetch tech and non-tech posts
-  const [techData, nonTechData] = await Promise.all([
-    client.request<{ posts: unknown[] }>(GetAllTechPosts, { isTech: true }),
-    client.request<{ posts: unknown[] }>(GetAllTechPosts, { isTech: false }),
-  ]);
+  const postsData = await client.request<{ posts: unknown[] }>(GetAllPosts);
 
-  // Write static JSON data files
+  // Write static JSON data file
   const dataDir = path.join(distClient, "data");
-  writeJson(path.join(dataDir, "posts-tech.json"), techData);
-  writeJson(path.join(dataDir, "posts-non-tech.json"), nonTechData);
-  console.log("  Written: /data/posts-tech.json, /data/posts-non-tech.json");
+  writeJson(path.join(dataDir, "posts.json"), postsData);
+  console.log("  Written: /data/posts.json");
 
-  // Tag each list payload with its tab so the client can detect when an SPA
-  // fallback or misconfigured host serves the wrong HTML for a route.
-  const techPayload = { ...techData, type: "tech" };
-  const nonTechPayload = { ...nonTechData, type: "non-tech" };
-
-  // Render / (tech home) — overwrites the SPA template, but the template was
+  // Render / (home) — overwrites the SPA template, but the template was
   // already read into memory above.
-  const techHtml = render("/", techPayload);
+  const homeHtml = render("/", postsData);
   writeHtml(
     path.join(distClient, "index.html"),
-    buildHtml(template, techHtml, techPayload),
+    buildHtml(template, homeHtml, postsData),
   );
   console.log("  Written: /index.html");
 
-  // Render /non-tech
-  const nonTechHtml = render("/non-tech", nonTechPayload);
-  writeHtml(
-    path.join(distClient, "non-tech/index.html"),
-    buildHtml(template, nonTechHtml, nonTechPayload),
-  );
-  console.log("  Written: /non-tech/index.html");
-
   // Fetch and render each individual post under /post/:slug
-  const allSlugs = [
-    ...techData.posts.map((p: any) => p.slug),
-    ...nonTechData.posts.map((p: any) => p.slug),
-  ];
+  const allSlugs = postsData.posts.map((p: any) => p.slug);
 
   await Promise.all(
     allSlugs.map(async (slug: string) => {

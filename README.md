@@ -58,8 +58,7 @@ npm run build
   └── tsx scripts/prerender.ts
         ├── fetches all posts from Hygraph
         ├── renders each page to HTML
-        └── writes dist/client/index.html              (tech posts list)
-            dist/client/non-tech/index.html             (off-topic posts list)
+        └── writes dist/client/index.html              (post list, filterable by tag)
             dist/client/post/[slug]/index.html          (one per post)
             dist/client/data/*.json                     (static data for client navigation)
 ```
