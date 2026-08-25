@@ -7,14 +7,10 @@ import * as gtag from '~/utils/gtags'
 import Tag from './Tag'
 
 export default function PostItem(props: Post) {
-  const isNonTechPost = props.tags.some(
-    (tag) => tag.name.toLowerCase() === 'off-topic'
-  )
-
   const handlePostLinkClick = () => {
     gtag.event({
       action: GAEventAction.PostClick,
-      category: isNonTechPost ? GAEventCategory.NonTech : GAEventCategory.Tech,
+      category: GAEventCategory.Post,
       label: props.slug,
       value: props.tags.map((tag) => tag.name).join(','),
     })

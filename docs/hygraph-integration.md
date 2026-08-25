@@ -9,8 +9,8 @@ The blog uses [Hygraph](https://hygraph.com) as a headless CMS. All content (pos
 Used in `scripts/prerender.ts` and `src/pages/Posts.tsx`:
 
 ```graphql
-query Posts($isTech: Boolean) {
-  posts(where: { isTech: $isTech }) {
+query Posts {
+  posts {
     title
     content
     date
@@ -25,7 +25,7 @@ query Posts($isTech: Boolean) {
 }
 ```
 
-The `isTech` variable filters between tech posts (`true`) and non-tech posts (`false`).
+All posts are fetched in one request — the home page lists everything and lets visitors filter client-side by tag (see `TagFilter` in `docs/contributing.md`).
 
 ### Fetch a single post
 
@@ -71,7 +71,6 @@ Your Hygraph schema should have:
   - `date` (Date)
   - `description` (String)
   - `content` (String — Markdown)
-  - `isTech` (Boolean)
   - `tags` (relation to Tag)
   - `coverImage` (Asset, optional)
   - `coverImageCredits` (String, optional — supports Markdown)

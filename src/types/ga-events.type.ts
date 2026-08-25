@@ -7,10 +7,8 @@ export type GAEvent = {
 
 export enum GAEventAction {
   PostClick = 'post_click',
-  SocialClick = 'social_click',
 }
 
 export enum GAEventCategory {
-  NonTech = 'non_tech',
-  Tech = 'tech',
+  Post = 'post',
 }

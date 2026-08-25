@@ -1,6 +1,6 @@
 # Project Overview
 
-A personal blog built with React, Vite, and Tailwind CSS. Content is managed in Hygraph (a headless CMS) and fetched via GraphQL at build time to generate a fully static site deployed on Netlify.
+TheMindHopper, a blog built with React, Vite, and Tailwind CSS. Content is managed in Hygraph (a headless CMS) and fetched via GraphQL at build time to generate a fully static site deployed on Netlify.
 
 > Looking for the practical how-tos (adding a route, changing a Hygraph field, design tokens)? See [`contributing.md`](./contributing.md).
 
@@ -13,8 +13,7 @@ Hygraph (CMS)
     ▼
 Prerender script (scripts/prerender.ts)
     │
-    ├── Generates /index.html               (tech posts list)
-    ├── Generates /non-tech/index.html      (off-topic posts list)
+    ├── Generates /index.html               (post list, filterable by tag)
     ├── Generates /post/[slug]/index.html   (one per post)
     └── Generates /data/*.json              (static API for client navigation)
     │
@@ -61,8 +60,7 @@ blog/
 │   └── prerender.ts       SSG build step — fetches Hygraph + writes HTML files
 └── src/
     ├── api/               GraphQL client + loader functions for client-side data fetching
-    ├── components/        Reusable UI (Header, AppLayout, PostItem, Article, Tag, ...)
-    ├── constants/         Shared constants (e.g. POST_TYPE)
+    ├── components/        Reusable UI (Header, AppLayout, PostItem, Article, Tag, TagFilter, ...)
     ├── context/           React contexts — PageData (boot data + bootConsumed flag)
     ├── pages/             Route components (Posts, Post)
     ├── styles/            Tailwind v4 entry + design tokens + highlight.js theme
@@ -81,7 +79,7 @@ The site never fetches Hygraph at runtime in production. Data reaches React by t
 2. **Hydration:** `entry-client.tsx` reads `window.__INITIAL_DATA__` and passes it to `PageDataProvider`. Pages call `usePageData<T>()` to consume it.
 3. **Client-side navigation:** `loadPosts` / `loadPost` in `src/api/cms.ts` fetch the prerendered `/data/*.json` files (or hit Hygraph through the Vite proxy in dev). A module-level `bootConsumed` flag in `src/context/PageData.tsx` ensures the boot payload is used at most once and only when its `type`/`slug` matches the current URL — every later mount refetches.
 
-This is why each prerendered list payload is tagged with a `type` field (`tech` or `non-tech`): if a misconfigured host serves the wrong HTML for a route, the page detects the mismatch and refetches instead of rendering stale data.
+The home page lists every post (no pagination) and lets visitors filter by one or more tags via a `TagFilter` bar; the selection is kept in the `?tags=` URL search param so it survives reloads and is shareable. Filtering happens entirely client-side against the already-fetched post list — there's no per-tag-combination prerendering.
 
 ### Entry points
 
