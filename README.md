@@ -1,4 +1,4 @@
-# Personal Blog
+# TheMindHopper
 
 Built with [React](https://react.dev/) and [Vite](https://vite.dev/), deployed on [Netlify](https://www.netlify.com/) as a static site. Posts are managed through [Hygraph](https://hygraph.com/), a GraphQL-based headless CMS.
 

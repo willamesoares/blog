@@ -1,6 +1,6 @@
 # Project Overview
 
-A personal blog built with React, Vite, and Tailwind CSS. Content is managed in Hygraph (a headless CMS) and fetched via GraphQL at build time to generate a fully static site deployed on Netlify.
+TheMindHopper, a blog built with React, Vite, and Tailwind CSS. Content is managed in Hygraph (a headless CMS) and fetched via GraphQL at build time to generate a fully static site deployed on Netlify.
 
 > Looking for the practical how-tos (adding a route, changing a Hygraph field, design tokens)? See [`contributing.md`](./contributing.md).
 
