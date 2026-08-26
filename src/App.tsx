@@ -19,6 +19,10 @@ export default function App() {
     }
   }, [location])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
+
   return (
     <>
       {GA_TRACKING_ID && import.meta.env.PROD && (
