@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import netlify from "@netlify/vite-plugin";
 import fs from "fs";
 import path from "path";
+import { fetchPublicPlaylists } from "./scripts/spotify";
 
 // Mirror Netlify's "pretty URLs" behavior in `vite preview`: for an
 // extensionless request like /post/some-slug, prefer /post/some-slug/index.html
@@ -22,6 +23,28 @@ function netlifyPrettyUrlsPreview(): Plugin {
           if (fs.existsSync(candidate)) req.url = clean + "/";
         }
         next();
+      });
+    },
+  };
+}
+
+// Dev-only stand-in for scripts/spotify.ts's prod path: does the Client
+// Credentials token exchange server-side so SPOTIFY_CLIENT_SECRET never
+// reaches the browser, then serves the playlists as JSON.
+function spotifyPlaylistsDevMiddleware(env: Record<string, string>): Plugin {
+  return {
+    name: "spotify-playlists-dev-middleware",
+    configureServer(server) {
+      server.middlewares.use("/api/spotify/playlists", async (_req, res) => {
+        try {
+          const playlists = await fetchPublicPlaylists(env);
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify({ playlists }));
+        } catch (err) {
+          res.statusCode = 500;
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify({ error: (err as Error).message }));
+        }
       });
     },
   };
@@ -50,6 +73,7 @@ export default defineConfig(({ mode }) => {
       // and netlify.toml redirects mirror production behavior.
       netlify({ staticFiles: { enabled: mode !== "development" } }),
       netlifyPrettyUrlsPreview(),
+      spotifyPlaylistsDevMiddleware(env),
     ],
     resolve: {
       alias: { "~": path.resolve(__dirname, "src") },

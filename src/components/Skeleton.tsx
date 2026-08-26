@@ -40,6 +40,16 @@ export function PoemCardSkeleton() {
   )
 }
 
+export function PlaylistCardSkeleton() {
+  return (
+    <div role="status" aria-label="Loading playlist">
+      <Skeleton className="aspect-square rounded-md" />
+      <Skeleton className="h-4 w-4/5 mt-2" />
+      <Skeleton className="h-3 w-1/2 mt-1.5" />
+    </div>
+  )
+}
+
 export function ArticleSkeleton() {
   return (
     <div role="status" aria-label="Loading article" className="my-4">

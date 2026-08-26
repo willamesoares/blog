@@ -62,7 +62,7 @@ blog/
     ├── api/               GraphQL client + loader functions for client-side data fetching
     ├── components/        Reusable UI (Header, AppLayout, PostItem, Article, Tag, TagFilter, ...)
     ├── context/           React contexts — PageData (boot data + bootConsumed flag)
-    ├── pages/             Route components (Posts, Post)
+    ├── pages/             Route components (Posts, Post, Poems, Playlists)
     ├── styles/            Tailwind v4 entry + design tokens + highlight.js theme
     ├── types/             Shared TypeScript types (Post, Tag, GA events, ...)
     ├── utils/             Pure helpers (date, calculateReadTime, gtags)
@@ -105,5 +105,8 @@ The server bundle ends up at `dist/server/entry-server.js` after `vite build --s
 | `GRAPH_CMS_URL` | Yes | Hygraph GraphQL endpoint URL |
 | `GRAPH_CMS_PAT` | Yes | Hygraph Personal Access Token (server-side only) |
 | `VITE_GA_TRACKING_ID` | No | Google Analytics measurement ID (e.g. G-XXXXXXXXXX) |
+| `SPOTIFY_CLIENT_ID` | No | Spotify app client ID — see `docs/spotify-integration.md` |
+| `SPOTIFY_CLIENT_SECRET` | No | Spotify app client secret (server-side only) |
+| `SPOTIFY_USER_ID` | No | Spotify account whose public playlists are listed on `/playlists` |
 
 See `docs/local-development.md` for setup instructions.

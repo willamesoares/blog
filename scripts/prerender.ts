@@ -16,6 +16,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { gql, GraphQLClient } from "graphql-request";
+import { fetchPublicPlaylists } from "./spotify";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -157,6 +158,28 @@ async function prerender() {
   );
   console.log("  Written: /poems/index.html");
 
+  console.log("Fetching playlists from Spotify...");
+
+  let playlists: Awaited<ReturnType<typeof fetchPublicPlaylists>> = [];
+  try {
+    playlists = await fetchPublicPlaylists();
+  } catch (err) {
+    // Playlists are a bonus page — don't fail the whole build (posts/poems)
+    // over missing Spotify credentials or an API hiccup.
+    console.warn(`  Skipping playlists: ${(err as Error).message}`);
+  }
+
+  const playlistsData = { playlists };
+  writeJson(path.join(dataDir, "playlists.json"), playlistsData);
+  console.log("  Written: /data/playlists.json");
+
+  const playlistsHtml = render("/playlists", playlistsData);
+  writeHtml(
+    path.join(distClient, "playlists/index.html"),
+    buildHtml(template, playlistsHtml, playlistsData),
+  );
+  console.log("  Written: /playlists/index.html");
+
   // Fetch and render each individual post under /post/:slug
   const allSlugs = postsData.posts.map((p: any) => p.slug);
 
@@ -175,7 +198,7 @@ async function prerender() {
     }),
   );
 
-  console.log(`\nPrerender complete. ${allSlugs.length + 2} pages generated.`);
+  console.log(`\nPrerender complete. ${allSlugs.length + 3} pages generated.`);
 }
 
 prerender().catch((err) => {
