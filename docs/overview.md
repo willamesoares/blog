@@ -108,5 +108,6 @@ The server bundle ends up at `dist/server/entry-server.js` after `vite build --s
 | `SPOTIFY_CLIENT_ID` | No | Spotify app client ID — see `docs/spotify-integration.md` |
 | `SPOTIFY_CLIENT_SECRET` | No | Spotify app client secret (server-side only) |
 | `SPOTIFY_USER_ID` | No | Spotify account whose public playlists are listed on `/playlists` |
+| `SPOTIFY_EXTRA_PLAYLIST_IDS` | No | Comma-separated playlist IDs to include manually — see `docs/spotify-integration.md` |
 
 See `docs/local-development.md` for setup instructions.

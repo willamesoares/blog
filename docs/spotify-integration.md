@@ -13,6 +13,12 @@ The token exchange and the playlists fetch both happen in `scripts/spotify.ts`, 
 
 There's no client-side fallback in production (unlike `loadPosts`/`loadPoems`, which can fall back to hitting Hygraph directly from the browser). A Client Credentials exchange needs the client secret, which must never reach the browser bundle — so in prod, `loadPlaylists()` only ever reads the prerendered `/data/playlists.json`.
 
+## Known limitation: the list endpoint can omit a public playlist
+
+`GET /v1/users/{user_id}/playlists` is expected to return every playlist owned by that user with `public: true`, but in practice it can silently omit one — confirmed by fetching the same playlist directly via `GET /v1/playlists/{id}`, which correctly reports `public: true` and the right owner even though it's missing from the list response. This is a Spotify API inconsistency, not a pagination bug (the loop over `data.next` in `scripts/spotify.ts` does walk every page).
+
+There's no way to fix this from the list endpoint itself, so `fetchPublicPlaylists()` also accepts an optional `SPOTIFY_EXTRA_PLAYLIST_IDS` env var (comma-separated playlist IDs) and fetches each one individually via `GET /v1/playlists/{id}`, merging it in if it wasn't already returned by the list. If a playlist you've marked public isn't showing up on `/playlists`, add its ID here.
+
 ## Fail-soft build behavior
 
 Posts and poems are core content — `scripts/prerender.ts` fails the whole build if Hygraph is unreachable. Playlists are a bonus page, so they're handled differently: if the Spotify fetch throws (missing/invalid credentials, API outage, rate limit), `prerender.ts` logs a warning and writes an empty `playlists.json` instead of failing the build. A Spotify hiccup should never take down the rest of the site.
@@ -27,6 +33,7 @@ Posts and poems are core content — `scripts/prerender.ts` fails the whole buil
    SPOTIFY_CLIENT_ID=
    SPOTIFY_CLIENT_SECRET=
    SPOTIFY_USER_ID=
+   SPOTIFY_EXTRA_PLAYLIST_IDS=
    ```
 
 No webhook exists for Spotify — playlist changes only show up on the next deploy (manual, or triggered by publishing a post/poem in Hygraph).

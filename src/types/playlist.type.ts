@@ -5,4 +5,5 @@ export type Playlist = {
   url: string
   image: string | null
   trackCount: number
+  collaborative: boolean
 }
