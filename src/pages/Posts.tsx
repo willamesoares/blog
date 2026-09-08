@@ -10,6 +10,7 @@ import { loadPosts } from "~/api/cms";
 import PostItem from "~/components/PostItem";
 import TagFilter from "~/components/TagFilter";
 import { PostItemSkeleton } from "~/components/Skeleton";
+import { getTagThemeColors } from "~/utils/tagTheme";
 
 export default function Posts() {
   const initialData = usePageData<{ posts: Post[] }>();
@@ -72,6 +73,27 @@ export default function Posts() {
       )
     : sortedPosts;
 
+  useEffect(() => {
+    const root = document.documentElement;
+    const colors = getTagThemeColors(selectedTags);
+    const variables = [
+      "--color-brand",
+      "--color-brand-hover",
+      "--color-brand-soft",
+      "--color-visited",
+    ];
+
+    if (colors) {
+      variables.forEach((v) => root.style.setProperty(v, colors[v]));
+    } else {
+      variables.forEach((v) => root.style.removeProperty(v));
+    }
+
+    return () => {
+      variables.forEach((v) => root.style.removeProperty(v));
+    };
+  }, [selectedTags]);
+
   const toggleTag = (tag: string) => {
     const next = selectedTags.includes(tag)
       ? selectedTags.filter((t) => t !== tag)
@@ -83,7 +105,12 @@ export default function Posts() {
   return (
     <>
       {!loading && (
-        <TagFilter tags={allTags} selectedTags={selectedTags} onToggle={toggleTag} />
+        <TagFilter
+          tags={allTags}
+          selectedTags={selectedTags}
+          onToggle={toggleTag}
+          onClear={() => setSearchParams({})}
+        />
       )}
       {loading ? (
         <div className="flex flex-col gap-10 mt-4">

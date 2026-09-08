@@ -2,9 +2,10 @@ type TagFilterProps = {
   tags: string[]
   selectedTags: string[]
   onToggle: (tag: string) => void
+  onClear: () => void
 }
 
-export default function TagFilter({ tags, selectedTags, onToggle }: TagFilterProps) {
+export default function TagFilter({ tags, selectedTags, onToggle, onClear }: TagFilterProps) {
   if (!tags.length) return null
 
   return (
@@ -28,6 +29,15 @@ export default function TagFilter({ tags, selectedTags, onToggle }: TagFilterPro
           </button>
         )
       })}
+      {selectedTags.length ? (
+        <button
+          type="button"
+          onClick={onClear}
+          className="text-[0.75rem] rounded-full px-2.5 py-1 font-medium transition-colors border border-border text-text-muted hover:text-text hover:border-text-muted"
+        >
+          Clear
+        </button>
+      ) : null}
     </nav>
   )
 }
