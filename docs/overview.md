@@ -15,7 +15,8 @@ Prerender script (scripts/prerender.ts)
     │
     ├── Generates /index.html               (post list, filterable by tag)
     ├── Generates /post/[slug]/index.html   (one per post)
-    └── Generates /data/*.json              (static API for client navigation)
+    ├── Generates /data/*.json              (static API for client navigation)
+    └── Generates /sitemap.xml              (home, posts, poems, playlists)
     │
     ▼
 Netlify CDN

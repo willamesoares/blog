@@ -23,6 +23,10 @@ const root = path.resolve(__dirname, "..");
 const distClient = path.join(root, "dist/client");
 const distServer = path.join(root, "dist/server");
 
+// The site is single-environment (Netlify only ever deploys this repo's
+// `main` to production), so this is a fixed value rather than an env var.
+const SITE_URL = "https://themindhopper.com";
+
 // ---------------------------------------------------------------------------
 // GraphQL queries
 // ---------------------------------------------------------------------------
@@ -112,6 +116,23 @@ function buildHtml(
     );
 }
 
+function buildSitemap(urls: { loc: string; lastmod?: string }[]): string {
+  const entries = urls
+    .map(({ loc, lastmod }) =>
+      [
+        "  <url>",
+        `    <loc>${SITE_URL}${loc}</loc>`,
+        lastmod ? `    <lastmod>${lastmod}</lastmod>` : null,
+        "  </url>",
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    )
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>\n`;
+}
+
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
@@ -197,6 +218,23 @@ async function prerender() {
       console.log(`  Written: /post/${slug}/index.html`);
     }),
   );
+
+  const mostRecentPostDate = [...postsData.posts]
+    .map((p: any) => p.date as string)
+    .sort()
+    .at(-1);
+
+  const sitemap = buildSitemap([
+    { loc: "/", lastmod: mostRecentPostDate },
+    ...postsData.posts.map((p: any) => ({
+      loc: `/post/${p.slug}`,
+      lastmod: p.date as string,
+    })),
+    { loc: "/poems" },
+    { loc: "/playlists" },
+  ]);
+  fs.writeFileSync(path.join(distClient, "sitemap.xml"), sitemap, "utf-8");
+  console.log("  Written: /sitemap.xml");
 
   console.log(`\nPrerender complete. ${allSlugs.length + 3} pages generated.`);
 }
